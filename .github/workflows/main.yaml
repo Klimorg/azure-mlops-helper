@@ -1,0 +1,56 @@
+---
+name: CI-CD
+on: [push, pull_request, workflow_call]
+
+jobs:
+    tests:
+        runs-on: ${{ matrix.os }}
+        strategy:
+            fail-fast: false
+            matrix:
+                os: [ubuntu-latest, macos-latest]
+                python-version: ['3.8', '3.9', '3.10']
+                exclude:
+                    - os: macos-latest
+                      python-version: '3.8'
+
+        steps:
+            - uses: actions/checkout@v3
+            - name: Set up Python ${{ matrix.python-version }}
+              uses: actions/setup-python@v4.2.0
+              with:
+                  python-version: ${{ matrix.python-version }}
+                  architecture: x64
+
+            - name: Install Python dependencies
+              run: |
+                  python -m pip install --upgrade pip
+                  python -m pip install -r requirements.txt
+                  python -m pip install -r requirements-test.txt
+
+            - name: Run test suite with tox
+              run: tox
+
+            - name: Upload coverage to Codecov
+              uses: codecov/codecov-action@v3
+
+    # build-docs:
+    #     needs: tests
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #         - name: Checkout repo
+    #           uses: actions/checkout@v3
+    #         - name: Set up Python
+    #           uses: actions/setup-python@v4.2.0
+    #           with:
+    #               python-version: '3.9'
+    #         - name: Caching
+    #           uses: actions/cache@v3
+    #           with:
+    #               path: ${{ env.pythonLocation }}
+    #               key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}-${{ hashFiles('requirements.txt') }}
+    #         - name: Install dependencies
+    #           run: |
+    #               python -m pip install -e ".[doc]" --no-cache-dir
+    #         - name: Deploy documentation
+    #           run: mkdocs gh-deploy --force
