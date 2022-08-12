@@ -1,13 +1,3 @@
-"""
-This file is for unit testing the module
-my_custom_package.utils.blob_storage_interface
-
-Just as with other similar files, the aim is to test
-the correct Azure SDK classes are instantiated and
-methods are called, rather than testing the functionality
-of the external classes themselves.
-"""
-
 from unittest.mock import Mock
 
 import pandas as pd
