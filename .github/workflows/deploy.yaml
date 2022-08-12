@@ -2,14 +2,14 @@
 name: PyPI deploy
 
 on:
-  pull_request:
-  push:
-    branches: [main]
-  workflow_run:
-    workflows: ["CI-CD", "Pre-commit"]
-    branches: [main]
-    types:
-      - completed
+    pull_request:
+    push:
+        branches: [main]
+    workflow_run:
+        workflows: [CI-CD, Pre-commit]
+        branches: [main]
+        types:
+            - completed
 
 jobs:
     deployment:
@@ -27,7 +27,7 @@ jobs:
             - name: Set up Python 3.8
               uses: actions/setup-python@v4.2.0
               with:
-                  python-version: "3.8"
+                  python-version: '3.8'
                   architecture: x64
 
             - name: Install Python dependencies
@@ -42,12 +42,12 @@ jobs:
             - name: upload to pypi test server
               run: hatch publish --repo test
               env:
-                TWINE_USERNAME: __token__
-                TWINE_PASSWORD: ${{ secrets.pypi_test_server_token }}
+                  TWINE_USERNAME: __token__
+                  TWINE_PASSWORD: ${{ secrets.pypi_test_server_token }}
 
 
             - name: upload to pypi server
               run: hatch publish --repo test
               env:
-                TWINE_USERNAME: __token__
-                TWINE_PASSWORD: ${{ secrets.pypi_test_token }}
+                  TWINE_USERNAME: __token__
+                  TWINE_PASSWORD: ${{ secrets.pypi_test_token }}

@@ -4,6 +4,7 @@ from sklearn.datasets import make_classification
 
 from azure_helper.steps.create_data import CreateData
 
+
 @fixture
 def train_data():
     x_arr, y_arr = make_classification(
