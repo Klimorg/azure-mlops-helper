@@ -25,7 +25,7 @@ jobs:
                   python -m pip install -r requirements.txt
                   python -m pip install -r requirements-test.txt
 
-            - name: Run test suite with tox
+            - name: Run test suite
               run: python -m pytest -v --cov
 
             - name: Upload coverage to Codecov
