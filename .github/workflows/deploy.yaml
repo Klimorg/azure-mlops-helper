@@ -1,6 +1,5 @@
 ---
 name: PyPI deploy
-
 on:
     pull_request:
     push:
@@ -42,12 +41,12 @@ jobs:
             - name: upload to pypi test server
               run: hatch publish --repo test
               env:
-                  TWINE_USERNAME: __token__
-                  TWINE_PASSWORD: ${{ secrets.pypi_test_server_token }}
+                  HATCH_INDEX_USER: __token__
+                  HATCH_INDEX_AUTH: ${{ secrets.pypi_test_server_token }}
 
 
             - name: upload to pypi server
-              run: hatch publish --repo test
+              run: hatch publish
               env:
-                  TWINE_USERNAME: __token__
-                  TWINE_PASSWORD: ${{ secrets.pypi_test_token }}
+                  HATCH_INDEX_USER: __token__
+                  HATCH_INDEX_AUTH: ${{ secrets.pypi_test_token }}
