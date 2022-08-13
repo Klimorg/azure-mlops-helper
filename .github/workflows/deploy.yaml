@@ -37,11 +37,11 @@ jobs:
             - name: Build package
               run: hatch build
 
-            - name: upload to pypi test server
-              run: hatch publish --repo test
-              env:
-                  HATCH_INDEX_USER: __token__
-                  HATCH_INDEX_AUTH: ${{ secrets.pypi_test_server_token }}
+            #- name: upload to pypi test server
+            #  run: hatch publish --repo test
+            #  env:
+            #      HATCH_INDEX_USER: __token__
+            #      HATCH_INDEX_AUTH: ${{ secrets.pypi_test_server_token }}
 
 
             - name: upload to pypi server
