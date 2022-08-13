@@ -45,7 +45,7 @@ jobs:
 
 
             - name: upload to pypi server
-              run: export HATCH_INDEX_USER=__token__ && export HATCH_INDEX_AUTH=${{ secrets.pypi_test_token }} && hatch publish 
+              run: export HATCH_INDEX_USER=__token__ && export HATCH_INDEX_AUTH=${{ secrets.pypi_test_token }} && hatch publish
               #env:
               #    HATCH_INDEX_USER: __token__
               #    HATCH_INDEX_AUTH: ${{ secrets.pypi_test_token }}
