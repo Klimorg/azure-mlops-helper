@@ -1,3 +1,3 @@
 """Azure helper for e2e ml pipelines"""
 
-__version__ = "0.5.7"
+__version__ = "0.5.8"

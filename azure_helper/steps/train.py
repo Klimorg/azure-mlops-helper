@@ -10,7 +10,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import f1_score
 
 from azure_helper.logger import get_logger
-from azure_helper.utils.transform_data import remove_collinear_cols
 
 __here__ = os.path.dirname(__file__)
 
