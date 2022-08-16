@@ -15,8 +15,9 @@ class EnvSpecs(BaseModel):
 
 
 class AMLEnvironment:
-    def __init__(self, dist_dir: Path) -> None:
+    def __init__(self, dist_dir: Path, base_image:str) -> None:
         self.dist_dir = dist_dir
+        self.base_image = base_image
 
     def validate_dir(self):
         if self.dist_dir.is_dir():
@@ -67,7 +68,7 @@ class AMLEnvironment:
             )
         else:
             log.error(
-                f"env_specs flavor {env_specs.flavor} is not a valid one. Only 'pip', 'conda', or 'docker' are valide choices.",
+                f"env_specs flavor {env_specs.flavor} is not a valid one. Only 'pip', 'conda', or 'docker' are valid choices.",
             )
             raise ValueError
 
@@ -81,11 +82,12 @@ class AMLEnvironment:
 
         # conda_dep.add_pip_package(whl_url)
         # https://docs.microsoft.com/en-us/azure/machine-learning/how-to-train-with-custom-image#set-up-a-training-experiment
-        env.docker.base_image = (
-            "mcr.microsoft.com/azureml/curated/sklearn-1.0-ubuntu20.04-py38-cpu:28"
-        )
+        env.docker.base_image = self.base_image
+
         # env.python.user_managed_dependencies = True
 
         # https://stackoverflow.com/questions/67387249/how-to-use-azureml-core-runconfig-dockerconfiguration-class-in-azureml-core-envi
+
+        log.info("")
 
         return env

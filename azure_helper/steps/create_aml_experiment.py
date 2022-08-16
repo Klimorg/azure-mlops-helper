@@ -18,6 +18,7 @@ class AMLExperiment:
         aml_compute_instance: str,
         env_name: str,
         experiment_name: str,
+        training_script_path: str,
         clean_after_run: bool = True,
     ) -> None:
         self.interface = aml_interface
@@ -26,6 +27,7 @@ class AMLExperiment:
         self.env_name = env_name
         self.experiment_name = experiment_name
         self.clean_after_run = clean_after_run
+        self.training_script_path = training_script_path
 
     def submit_run(self):
 
@@ -36,7 +38,7 @@ class AMLExperiment:
         docker_config = DockerConfiguration(use_docker=True)
         run_config = ScriptRunConfig(
             source_directory=src_dir,
-            script="azure_helper/steps/train.py",
+            script=self.training_script_path,
             docker_runtime_config=docker_config,
         )
 
