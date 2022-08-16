@@ -15,7 +15,7 @@ class EnvSpecs(BaseModel):
 
 
 class AMLEnvironment:
-    def __init__(self, dist_dir: Path, base_image:str) -> None:
+    def __init__(self, dist_dir: Path, base_image: str) -> None:
         self.dist_dir = dist_dir
         self.base_image = base_image
 
