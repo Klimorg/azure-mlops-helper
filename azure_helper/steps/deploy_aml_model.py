@@ -5,52 +5,81 @@ from azureml.core.model import InferenceConfig, Model
 from azureml.core.webservice import AciWebservice, Webservice
 
 from azure_helper.utils.aml_interface import AMLInterface
+from azure_helper.logger import get_logger
+from pydantic import BaseModel
 
 __here__ = os.path.dirname(__file__)
 
-
-def get_inference_config(aml_interface):
-
-    aml_env = Environment.get(
-        workspace=aml_interface.workspace,
-        name=AML_ENV_NAME,
-    )
-    scoring_script_path = os.path.join(__here__, "score.py")
-    inference_config = InferenceConfig(
-        entry_script=scoring_script_path,
-        environment=aml_env,
-    )
-    return inference_config
+log = get_logger()
 
 
-def deploy_service(aml_interface):
-    inference_config = get_inference_config(aml_interface)
-    deployment_config = AciWebservice.deploy_configuration(
-        cpu_cores=1,
-        memory_gb=1,
-    )
-    model = aml_interface.workspace.models.get(MODEL_NAME)
-    service = Model.deploy(
-        aml_interface.workspace,
-        DEPLOYMENT_SERVICE_NAME,
-        [model],
-        inference_config,
-        deployment_config,
-    )
-    service.wait_for_deployment(show_output=True)
-    print(service.scoring_uri)
+class DeploymentConfig(BaseModel):
+    deployment_service_name: str
+    cpu_cores: int = 1
+    memory_gb: int = 1
+    enable_app_insights: bool = True
 
 
-def update_service(aml_interface):
-    inference_config = get_inference_config(aml_interface)
-    service = Webservice(
-        name=DEPLOYMENT_SERVICE_NAME,
-        workspace=aml_interface.workspace,
-    )
-    model = aml_interface.workspace.models.get(MODEL_NAME)
-    service.update(models=[model], inference_config=inference_config)
-    print(service.state)
-    print(service.scoring_uri)
+class DeployModel:
+    def __init__(
+        self,
+        aml_interface: AMLInterface,
+        aml_env_name: str,
+        model_name: str,
+        deployment_config: DeploymentConfig,
+    ) -> None:
+        self.aml_interface = aml_interface
+        self.aml_env_name = aml_env_name
+        self.model_name = model_name
+        self.deployment_config = deployment_config
+
+    def get_inference_config(
+        self,
+    ):
+
+        aml_env = Environment.get(
+            workspace=self.aml_interface.workspace,
+            name=self.aml_env_name,
+        )
+        scoring_script_path = os.path.join(__here__, "score.py")
+        inference_config = InferenceConfig(
+            entry_script=scoring_script_path,
+            environment=aml_env,
+        )
+        return inference_config
+
+    def deploy_service(
+        self,
+    ):
+        inference_config = self.get_inference_config()
+        deployment_config = AciWebservice.deploy_configuration(
+            cpu_cores=self.deployment_config.cpu_cores,
+            memory_gb=self.deployment_config.memory_gb,
+            enable_app_insights=self.deployment_config.enable_app_insights,
+        )
+        model = self.aml_interface.workspace.models.get(self.model_name)
+        service = Model.deploy(
+            self.aml_interface.workspace,
+            self.deployment_config.deployment_service_name,
+            [model],
+            inference_config,
+            deployment_config,
+        )
+        service.wait_for_deployment(show_output=True)
+        log.info(service.scoring_uri)
+
+    def update_service(
+        self,
+    ):
+        inference_config = self.get_inference_config()
+        service = Webservice(
+            name=self.deployment_config.deployment_service_name,
+            workspace=self.aml_interface.workspace,
+        )
+        model = self.aml_interface.workspace.models.get(self.model_name)
+        service.update(models=[model], inference_config=inference_config)
+        log.info(service.state)
+        log.info(service.scoring_uri)
 
 
 def main():
