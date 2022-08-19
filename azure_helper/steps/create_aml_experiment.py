@@ -21,6 +21,18 @@ class AMLExperiment:
         training_script_path: str,
         clean_after_run: bool = True,
     ) -> None:
+        """_summary_
+
+        Args:
+            aml_interface (AMLInterface): _description_
+            aml_compute_name (str): _description_
+            aml_compute_instance (str): _description_
+            env_name (str): _description_
+            experiment_name (str): _description_
+            training_script_path (str): _description_
+            clean_after_run (bool, optional): _description_. Defaults to True.
+        """
+
         self.interface = aml_interface
         self.aml_compute_name = aml_compute_name
         self.aml_compute_instance = aml_compute_instance
@@ -30,6 +42,7 @@ class AMLExperiment:
         self.training_script_path = training_script_path
 
     def submit_run(self):
+        """_summary_"""
 
         experiment = Experiment(self.interface.workspace, self.experiment_name)
         # src_dir = __here__

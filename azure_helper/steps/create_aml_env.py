@@ -10,22 +10,47 @@ log = get_logger()
 
 
 class EnvSpecs(BaseModel):
+    """_summary_
+
+    Args:
+        BaseModel (_type_): _description_
+    """
+
     flavor: str
     spec_file: Path
 
 
 class AMLEnvironment:
     def __init__(self, dist_dir: Path, base_image: str) -> None:
+        """_summary_
+
+        Args:
+            dist_dir (Path): _description_
+            base_image (str): _description_
+        """
         self.dist_dir = dist_dir
         self.base_image = base_image
 
     def validate_dir(self):
+        """_summary_
+
+        Raises:
+            FileNotFoundError: _description_
+        """
         if self.dist_dir.is_dir():
             log.info(f"Looking for wheel file in {self.dist_dir}.")
         else:
             raise FileNotFoundError
 
     def retrieve_whl_filepath(self):
+        """_summary_
+
+        Raises:
+            FileNotFoundError: _description_
+
+        Returns:
+            _type_: _description_
+        """
         try:
             self.validate_dir()
         except FileNotFoundError:
@@ -51,6 +76,19 @@ class AMLEnvironment:
         env_specs: EnvSpecs,
         aml_interface: AMLInterface,
     ) -> Environment:
+        """_summary_
+
+        Args:
+            env_name (str): _description_
+            env_specs (EnvSpecs): _description_
+            aml_interface (AMLInterface): _description_
+
+        Raises:
+            ValueError: _description_
+
+        Returns:
+            Environment: _description_
+        """
         if env_specs.flavor == "pip":
             env = Environment.from_pip_requirements(
                 name=env_name,

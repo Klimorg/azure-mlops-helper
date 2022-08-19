@@ -21,19 +21,14 @@ class AMLInterface:
     ):
         """Instantiate an Azure Machine Learning Workspace and its connection to Azure DevOps.
 
-        Parameters
-        ----------
-        spn_credentials : Dict[str, str]
-            Credentials of the Service Principal used to communicate betwee the different resources of the workspace.
-            Must contains the TenantID and the ServicePrincipalID.
-        subscription_id : str
-            The Azure subscription ID containing the workspace.
-        workspace_name : str
-            The workspace name. The name must be between 2 and 32 characters long.
-            The first character of the name must be alphanumeric (letter or number), but the rest of the name may
-            contain alphanumerics, hyphens, and underscores. Whitespace is not allowed.
-        resource_group : str
-            The resource group containing the workspace.
+        Args:
+            spn_credentials (Dict[str, str]): Credentials of the Service Principal used to communicate betwee the different resources of the workspace.
+                Must contains the TenantID and the ServicePrincipalID.
+            subscription_id (str): The Azure subscription ID containing the workspace.
+            workspace_name (str): The workspace name. The name must be between 2 and 32 characters long.
+                The first character of the name must be alphanumeric (letter or number), but the rest of the name may
+                contain alphanumerics, hyphens, and underscores. Whitespace is not allowed.
+            resource_group (str): The resource group containing the workspace.
         """
         auth = ServicePrincipalAuthentication(**spn_credentials)
         self.workspace = Workspace(
@@ -52,16 +47,11 @@ class AMLInterface:
     ):
         """Register an Azure Blob Container to the datastore.
 
-        Parameters
-        ----------
-        datastore_name : str
-            The name of the datastore, case insensitive, can only contain alphanumeric characters and -.
-        blob_container : str
-            The name of the azure blob container.
-        storage_acct_name : str
-            The storage account name.
-        storage_acct_key : str
-            Access keys of your storage account, defaults to None.
+        Args:
+            datastore_name (str): The name of the datastore, case insensitive, can only contain alphanumeric characters and -.
+            blob_container (str): The name of the azure blob container.
+            storage_acct_name (str): The storage account name.
+            storage_acct_key (str): Access keys of your storage account, defaults to None.
         """
         Datastore.register_azure_blob_container(
             workspace=self.workspace,
@@ -74,29 +64,23 @@ class AMLInterface:
     def register_aml_environment(self, environment: Environment):
         """Register the environment object in your workspace.
 
-        Parameters
-        ----------
-        environment : Environment
-            A reproducible Python environment for machine learning experiments.
+        Args:
+            environment (Environment): A reproducible Python environment for machine learning experiments.
         """
         environment.register(workspace=self.workspace)
 
     def get_compute_target(self, compute_name: str, vm_size: str = "") -> ComputeTarget:
         """Instantiate a compute instance to train the models.
 
-        Parameters
-        ----------
-        compute_name : str
-            The name of the compute instance.
-        vm_size : str, optional
-            The size of agent VMs in the the compute instance. More details can be found here: https://aka.ms/azureml-vm-details.
-            Note that not all sizes are available in all regions, as detailed in the previous link.
-            If not specified, defaults to Standard_NC6. By default ""
+        Args:
+            compute_name (str): The name of the compute instance.
+            vm_size (str): The size of agent VMs in the the compute instance.
+                More details can be found here: https://aka.ms/azureml-vm-details.
+                Note that not all sizes are available in all regions, as detailed in the previous link.
+                If not specified, defaults to Standard_NC6. By default ""
 
-        Returns
-        -------
-        ComputeTarget
-            An instantiated compute instance.
+        Returns:
+            ComputeTarget: An instantiated compute instance.
         """
         try:
             compute_target = ComputeTarget(

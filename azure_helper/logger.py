@@ -8,6 +8,11 @@ LOG_FILE = "./mlops_e2e_pipeline.log"
 
 
 def get_logger():
+    """_summary_
+
+    Returns:
+        _type_: _description_
+    """
 
     fmt = (
         "<level>{level: <8}</level> - "
