@@ -13,7 +13,7 @@ __here__ = os.path.dirname(__file__)
 log = get_logger()
 
 
-class DeploymentConfig(BaseModel):
+class DeploymentSettings(BaseModel):
     deployment_service_name: str
     cpu_cores: int = 1
     memory_gb: int = 1
@@ -26,12 +26,12 @@ class DeployModel:
         aml_interface: AMLInterface,
         aml_env_name: str,
         model_name: str,
-        deployment_config: DeploymentConfig,
+        deployment_settings: DeploymentSettings,
     ) -> None:
         self.aml_interface = aml_interface
         self.aml_env_name = aml_env_name
         self.model_name = model_name
-        self.deployment_config = deployment_config
+        self.deployment_settings = deployment_settings
 
     def get_inference_config(
         self,
@@ -48,32 +48,35 @@ class DeployModel:
         )
         return inference_config
 
-    def deploy_service(
+    def deploy_aciservice(
         self,
     ):
         inference_config = self.get_inference_config()
-        deployment_config = AciWebservice.deploy_configuration(
-            cpu_cores=self.deployment_config.cpu_cores,
-            memory_gb=self.deployment_config.memory_gb,
-            enable_app_insights=self.deployment_config.enable_app_insights,
+        aci_deployment = AciWebservice.deploy_configuration(
+            cpu_cores=self.deployment_settings.cpu_cores,
+            memory_gb=self.deployment_settings.memory_gb,
+            enable_app_insights=self.deployment_settings.enable_app_insights,
         )
         model = self.aml_interface.workspace.models.get(self.model_name)
         service = Model.deploy(
             self.aml_interface.workspace,
-            self.deployment_config.deployment_service_name,
+            self.deployment_settings.deployment_service_name,
             [model],
             inference_config,
-            deployment_config,
+            aci_deployment,
         )
         service.wait_for_deployment(show_output=True)
         log.info(service.scoring_uri)
+
+    def deploy_aksservice(self):
+        pass
 
     def update_service(
         self,
     ):
         inference_config = self.get_inference_config()
         service = Webservice(
-            name=self.deployment_config.deployment_service_name,
+            name=self.deployment_settings.deployment_service_name,
             workspace=self.aml_interface.workspace,
         )
         model = self.aml_interface.workspace.models.get(self.model_name)
