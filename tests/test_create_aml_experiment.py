@@ -48,6 +48,7 @@ class TestAMLExperiment:
             aml_compute_instance="STANDARD_D2_V2",
             env_name="test_env_name",
             experiment_name="test_exp_name",
+            training_script_path="azure_helper/steps/train.py",
         )
 
         aml_exp.submit_run()

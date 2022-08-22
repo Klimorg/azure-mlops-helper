@@ -1,6 +1,5 @@
 import pandas as pd
 
-from azure_helper.utils.aml_interface import AMLInterface
 from azure_helper.utils.blob_storage_interface import BlobStorageInterface
 
 

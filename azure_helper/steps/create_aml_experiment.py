@@ -1,11 +1,14 @@
 import os
 from pathlib import Path
+from typing import List
 
 from azureml.core import Environment, Experiment, ScriptRunConfig
-from azureml.core.runconfig import DockerConfiguration
+from azureml.core.runconfig import DockerConfiguration, RunConfiguration
 
 from azure_helper.logger import get_logger
 from azure_helper.utils.aml_interface import AMLInterface
+from azureml.pipeline.steps import PythonScriptStep
+from azureml.pipeline.core import Pipeline
 
 log = get_logger()
 
@@ -41,8 +44,34 @@ class AMLExperiment:
         self.clean_after_run = clean_after_run
         self.training_script_path = training_script_path
 
-    def submit_run(self):
+    def generate_run_config(self) -> RunConfiguration:
+
+        run_config = RunConfiguration()
+        docker_config = DockerConfiguration(use_docker=True)
+        run_config.docker = docker_config
+
+        aml_run_env = Environment.get(
+            self.interface.workspace,
+            self.env_name,
+        )
+
+        run_config.environment = aml_run_env
+
+        compute_target = self.interface.get_compute_target(
+            self.aml_compute_name,
+            self.aml_compute_instance,
+        )
+        run_config.target = compute_target
+
+        return run_config
+
+    def submit_pipeline(self, steps: List[PythonScriptStep]):
         """_summary_
+
+        Args:
+            steps (List[PythonScriptStep]): _description_
+
+        https://github.com/Azure/MachineLearningNotebooks/blob/master/how-to-use-azureml/machine-learning-pipelines/intro-to-pipelines/aml-pipelines-getting-started.ipynb
 
         This should be a registered AZML Pipeline with the followings steps :
 
@@ -53,6 +82,28 @@ class AMLExperiment:
         * Save and version that model
 
         """
+        experiment = Experiment(self.interface.workspace, self.experiment_name)
+        # src_dir = __here__
+        # src_dir = str(Path.cwd())
+
+        compute_target = self.interface.get_compute_target(
+            self.aml_compute_name,
+            self.aml_compute_instance,
+        )
+
+        pipeline = Pipeline(workspace=self.interface.workspace, steps=steps)
+
+        log.info("Submitting Run")
+        run = experiment.submit(config=pipeline)
+        run.wait_for_completion(show_output=True)
+        log.info("Run completed.")
+
+        if self.clean_after_run:
+            log.info("Deleting compute instance.")
+            compute_target.delete()
+
+    def submit_run(self):
+        """_summary_"""
 
         experiment = Experiment(self.interface.workspace, self.experiment_name)
         # src_dir = __here__

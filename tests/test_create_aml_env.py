@@ -40,7 +40,10 @@ class TestRetrieveWhlFilepath:
         dist_dir = tmp_path / Path("test")
         dist_dir.mkdir()
 
-        aml_env = AMLEnvironment(dist_dir=dist_dir)
+        aml_env = AMLEnvironment(
+            dist_dir=dist_dir,
+            base_image="mcr.microsoft.com/azureml/curated/sklearn-1.0-ubuntu20.04-py38-cpu:28",
+        )
 
         aml_env.validate_dir()
 
@@ -58,7 +61,10 @@ class TestRetrieveWhlFilepath:
 
         mock_dir = mocker.patch(f"{test_module}.Path.is_dir")
         mock_dir.side_effect = [False]
-        aml_env = AMLEnvironment(dist_dir=dist_dir)
+        aml_env = AMLEnvironment(
+            dist_dir=dist_dir,
+            base_image="mcr.microsoft.com/azureml/curated/sklearn-1.0-ubuntu20.04-py38-cpu:28",
+        )
 
         with pytest.raises(FileNotFoundError):
             aml_env.retrieve_whl_filepath()
@@ -75,7 +81,10 @@ class TestRetrieveWhlFilepath:
         whl_filepath = tmp_path / Path(file)
         whl_filepath.touch()
 
-        aml_env = AMLEnvironment(dist_dir=tmp_path)
+        aml_env = AMLEnvironment(
+            dist_dir=tmp_path,
+            base_image="mcr.microsoft.com/azureml/curated/sklearn-1.0-ubuntu20.04-py38-cpu:28",
+        )
         with pytest.raises(FileNotFoundError):
             wheel = aml_env.retrieve_whl_filepath()
 
@@ -88,7 +97,10 @@ class TestRetrieveWhlFilepath:
         whl_filepath = tmp_path / Path(file)
         whl_filepath.touch()
 
-        aml_env = AMLEnvironment(dist_dir=tmp_path)
+        aml_env = AMLEnvironment(
+            dist_dir=tmp_path,
+            base_image="mcr.microsoft.com/azureml/curated/sklearn-1.0-ubuntu20.04-py38-cpu:28",
+        )
 
         filepath = aml_env.retrieve_whl_filepath()
 
@@ -102,7 +114,10 @@ class TestRetrieveWhlFilepath:
     def test_create_aml_environment_with_pip(self, mocker, tmp_path):
 
         # Initiate the class
-        env = AMLEnvironment(dist_dir=tmp_path)
+        env = AMLEnvironment(
+            dist_dir=tmp_path,
+            base_image="mcr.microsoft.com/azureml/curated/sklearn-1.0-ubuntu20.04-py38-cpu:28",
+        )
 
         # Mock the Environment class that is called inside AMLEnv
         mock_env = mocker.patch(f"{test_module}.Environment")
@@ -145,7 +160,10 @@ class TestRetrieveWhlFilepath:
     def test_create_aml_environment_with_docker(self, mocker, tmp_path):
 
         # Initiate the class
-        env = AMLEnvironment(dist_dir=tmp_path)
+        env = AMLEnvironment(
+            dist_dir=tmp_path,
+            base_image="mcr.microsoft.com/azureml/curated/sklearn-1.0-ubuntu20.04-py38-cpu:28",
+        )
 
         # Mock the Environment class that is called inside AMLEnv
         mock_env = mocker.patch(f"{test_module}.Environment")
@@ -196,7 +214,10 @@ class TestRetrieveWhlFilepath:
     def test_create_aml_environment_with_error(self, mocker, tmp_path, caplog):
 
         # Initiate the class
-        env = AMLEnvironment(dist_dir=tmp_path)
+        env = AMLEnvironment(
+            dist_dir=tmp_path,
+            base_image="mcr.microsoft.com/azureml/curated/sklearn-1.0-ubuntu20.04-py38-cpu:28",
+        )
 
         # Mock the Environment class that is called inside AMLEnv
         mock_env = mocker.patch(f"{test_module}.Environment")
@@ -229,6 +250,6 @@ class TestRetrieveWhlFilepath:
 
         assert len(caplog.records) == 1
         assert (
-            "env_specs flavor foobar is not a valid one. Only 'pip', 'conda', or 'docker' are valide choices."
+            "env_specs flavor foobar is not a valid one. Only 'pip', 'conda', or 'docker' are valid choices."
             in caplog.records[0].message
         )
