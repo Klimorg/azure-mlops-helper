@@ -118,11 +118,11 @@ class DeployModel:
         try:
             aks_target = AksCompute(self.workspace, name=aks_cluster_name)
             log.info(
-                f"k8s cluster {aks_cluster_name} found in workspace {self.workspace}"
+                f"k8s cluster {aks_cluster_name} found in workspace {self.workspace}",
             )
         except ComputeTargetException:
             log.error(
-                f"k8s cluster {aks_cluster_name} was not found in workspace {self.workspace}"
+                f"k8s cluster {aks_cluster_name} was not found in workspace {self.workspace}",
             )
             raise
 

@@ -4,11 +4,11 @@ from typing import List
 
 from azureml.core import Environment, Experiment, ScriptRunConfig
 from azureml.core.runconfig import DockerConfiguration, RunConfiguration
+from azureml.pipeline.core import Pipeline
+from azureml.pipeline.steps import PythonScriptStep
 
 from azure_helper.logger import get_logger
 from azure_helper.utils.aml_interface import AMLInterface
-from azureml.pipeline.steps import PythonScriptStep
-from azureml.pipeline.core import Pipeline
 
 log = get_logger()
 
