@@ -2,11 +2,13 @@ import os
 
 from azureml.core.environment import Environment
 from azureml.core.model import InferenceConfig, Model
-from azureml.core.webservice import AciWebservice, Webservice
+from azureml.core.webservice import AciWebservice, Webservice, AksWebservice
+from azureml.core.compute import AksCompute
 
 from azure_helper.utils.aml_interface import AMLInterface
 from azure_helper.logger import get_logger
 from pydantic import BaseModel
+from azureml.exceptions import ComputeTargetException
 
 __here__ = os.path.dirname(__file__)
 
@@ -14,6 +16,12 @@ log = get_logger()
 
 
 class DeploymentSettings(BaseModel):
+    """_summary_
+
+    Args:
+        BaseModel (_type_): _description_
+    """
+
     deployment_service_name: str
     cpu_cores: int = 1
     memory_gb: int = 1
@@ -28,7 +36,18 @@ class DeployModel:
         model_name: str,
         deployment_settings: DeploymentSettings,
     ) -> None:
+        """_summary_
+
+        Args:
+            aml_interface (AMLInterface): _description_
+            aml_env_name (str): _description_
+            model_name (str): _description_
+            deployment_settings (DeploymentSettings): _description_
+        """
+
         self.aml_interface = aml_interface
+        self.workspace = aml_interface.workspace
+
         self.aml_env_name = aml_env_name
         self.model_name = model_name
         self.deployment_settings = deployment_settings
@@ -36,9 +55,14 @@ class DeployModel:
     def get_inference_config(
         self,
     ):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
 
         aml_env = Environment.get(
-            workspace=self.aml_interface.workspace,
+            workspace=self.workspace,
             name=self.aml_env_name,
         )
         scoring_script_path = os.path.join(__here__, "score.py")
@@ -50,16 +74,21 @@ class DeployModel:
 
     def deploy_aciservice(
         self,
+        *args,
+        **kwargs,
     ):
+        """_summary_"""
         inference_config = self.get_inference_config()
         aci_deployment = AciWebservice.deploy_configuration(
+            *args,
+            **kwargs,
             cpu_cores=self.deployment_settings.cpu_cores,
             memory_gb=self.deployment_settings.memory_gb,
             enable_app_insights=self.deployment_settings.enable_app_insights,
         )
-        model = self.aml_interface.workspace.models.get(self.model_name)
+        model = self.workspace.models.get(self.model_name)
         service = Model.deploy(
-            self.aml_interface.workspace,
+            self.workspace,
             self.deployment_settings.deployment_service_name,
             [model],
             inference_config,
@@ -68,18 +97,62 @@ class DeployModel:
         service.wait_for_deployment(show_output=True)
         log.info(service.scoring_uri)
 
-    def deploy_aksservice(self):
-        pass
+    def deploy_aksservice(
+        self,
+        aks_cluster_name: str,
+        *args,
+        **kwargs,
+    ):
+        """_summary_
+
+        Args:
+            aks_cluster_name (str): _description_
+        """
+
+        try:
+            aks_target = AksCompute(self.workspace, name=aks_cluster_name)
+            log.info(
+                f"k8s cluster {aks_cluster_name} found in workspace {self.workspace}"
+            )
+        except ComputeTargetException:
+            log.error(
+                f"k8s cluster {aks_cluster_name} was not found in workspace {self.workspace}"
+            )
+            raise
+
+        inference_config = self.get_inference_config()
+        aks_deployment = AksWebservice.deploy_configuration(
+            *args,
+            **kwargs,
+            cpu_cores=self.deployment_settings.cpu_cores,
+            memory_gb=self.deployment_settings.memory_gb,
+            enable_app_insights=self.deployment_settings.enable_app_insights,
+        )
+
+        model = self.workspace.models.get(self.model_name)
+
+        service = Model.deploy(
+            self.workspace,
+            self.deployment_settings.deployment_service_name,
+            [model],
+            inference_config,
+            aks_deployment,
+            aks_target,
+        )
+        service.wait_for_deployment(show_output=True)
+        log.info(service.state)
+        log.info(service.scoring_uri)
 
     def update_service(
         self,
     ):
+        """_summary_"""
         inference_config = self.get_inference_config()
         service = Webservice(
             name=self.deployment_settings.deployment_service_name,
-            workspace=self.aml_interface.workspace,
+            workspace=self.workspace,
         )
-        model = self.aml_interface.workspace.models.get(self.model_name)
+        model = self.workspace.models.get(self.model_name)
         service.update(models=[model], inference_config=inference_config)
         log.info(service.state)
         log.info(service.scoring_uri)
