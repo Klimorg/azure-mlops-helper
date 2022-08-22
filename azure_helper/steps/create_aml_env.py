@@ -10,19 +10,13 @@ log = get_logger()
 
 
 class EnvSpecs(BaseModel):
-    """_summary_
-
-    Args:
-        BaseModel (_type_): _description_
-    """
-
     flavor: str
     spec_file: Path
 
 
 class AMLEnvironment:
     def __init__(self, dist_dir: Path, base_image: str) -> None:
-        """_summary_
+        """Initialisation of the class.
 
         Args:
             dist_dir (Path): _description_
@@ -125,7 +119,5 @@ class AMLEnvironment:
         # env.python.user_managed_dependencies = True
 
         # https://stackoverflow.com/questions/67387249/how-to-use-azureml-core-runconfig-dockerconfiguration-class-in-azureml-core-envi
-
-        log.info("")
 
         return env

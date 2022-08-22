@@ -1,4 +1,9 @@
-# # pylint: skip-file
+"""init() and run(data) are both reserved functions with reserved variables needed to deploy a model, whether it is on ACI or AKS.
+
+init() defines how to laod the model.
+
+run(data) defines how to handle the datas that are fed to the model from the REST endpoint.
+"""
 # import json
 
 # import joblib
