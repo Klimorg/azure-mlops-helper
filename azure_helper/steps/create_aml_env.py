@@ -16,7 +16,15 @@ class EnvSpecs(BaseModel):
 
 class AMLEnvironment:
     def __init__(self, dist_dir: Path, base_image: str) -> None:
-        """Initialisation of the class.
+        """Instantiate the creation of the AzureML Environment needed for the experiment.
+
+        An AzureML Environment is a Docker Image which encapsulates all the needed requirements for the experiment (ie
+        the training of a model) to run, this can be :
+
+        * the version of the OS,
+        * the various python libraries needed (ie the `requirements.txt`),
+        * the project built as a wheel and added as a private pip package,
+        * third-party softwares, etc.
 
         Args:
             dist_dir (Path): _description_
@@ -112,12 +120,9 @@ class AMLEnvironment:
         )
         env.python.conda_dependencies.add_pip_package(private_wheel)
 
-        # conda_dep.add_pip_package(whl_url)
-        # https://docs.microsoft.com/en-us/azure/machine-learning/how-to-train-with-custom-image#set-up-a-training-experiment
         env.docker.base_image = self.base_image
 
         # env.python.user_managed_dependencies = True
-
         # https://stackoverflow.com/questions/67387249/how-to-use-azureml-core-runconfig-dockerconfiguration-class-in-azureml-core-envi
 
         return env

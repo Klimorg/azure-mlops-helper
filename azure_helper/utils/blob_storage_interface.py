@@ -11,11 +11,36 @@ log = get_logger()
 
 class BlobStorageInterface:
     def __init__(self, storage_acct_name: str, storage_acct_key: str):
-        """_summary_
+        """Class responsible to interact with an existing Azure Storage Account.
+
+        It uses a connection string to connect to the Storage Account.
+
+        ```python
+        conn_str = (
+            "DefaultEndpointsProtocol=https;"
+            + f"AccountName={storage_acct_name};"
+            + f"AccountKey={storage_acct_key};"
+            + "EndpointSuffix=core.windows.net"
+        )
+        ```
+
+        !!! info "Information"
+
+            To get the key of this storage account we use the following command with the azure-cli.
+
+            ```sh
+            az storage account keys list --account-name <storage-account-name> --resource-group <resource-group>
+            ```
+
+        This class is responsible for :
+
+        * Creating a container in the storage account.
+        * Uploading a dataframe (as a `csv` for now) inside a blob in one of the container of the storage account.
+        * Download a `csv` from a blob in one of the container of the storage account and render it as a pandas dataframe.
 
         Args:
-            storage_acct_name (str): _description_
-            storage_acct_key (str): _description_
+            storage_acct_name (str): The name of the storage account to which you want to connect.
+            storage_acct_key (str): The account key of the storage account.
         """
         conn_str = (
             "DefaultEndpointsProtocol=https;"
@@ -28,10 +53,11 @@ class BlobStorageInterface:
         )
 
     def create_container(self, container_name: str):
-        """_summary_
+        """Create a container inside the storage account.
 
         Args:
-            container_name (str): _description_
+            container_name (str): the name of the container you want to create. This name can only contains
+                alphanumeric numbers and dashes '-'.
         """
         try:
             self.blob_service_client.create_container(container_name)
@@ -46,18 +72,64 @@ class BlobStorageInterface:
         container_name: str,
         blob_path: str,
     ):
-        """_summary_
+        """Upload a pandas dataframe as a `csv` file inside a blob.
+
+        Eg the following code.
+
+
+        ```python
+        from azure_helper.utils.blob_storage_interface import BlobStorageInterface
+
+        blob_storage_interface = BlobStorageInterface(
+            storage_acct_name="workspaceperso5448820782",
+            storage_acct_key="XXXXX-XXXX-XXXXX-XXXX",
+            )
+
+        blob_storage_interface.create_container(container_name="project-mlops-mk-5448820782")
+
+        blob_storage_interface.upload_df_to_blob(
+            dataframe=x_train,
+            container_name="project-mlops-mk-5448820782",
+            blob_path="train/x_train.csv",
+        )
+        blob_storage_interface.upload_df_to_blob(
+            dataframe=x_train,
+            container_name="project-mlops-mk-5448820782",
+            blob_path="train/y_train.csv",
+        )
+        ```
+
+        Upload the dataframes `x_train` and `y_train` as `x_train.csv` and `y_train.csv` in the following way.
+
+
+        ```bash
+        Storage_Account : workspaceperso5448820782
+            │
+            ├── Container : project-mlops-mk-5448820782
+            │   ├── blob : train
+            │   │           ├── x_train.csv
+            │   │           └── y_train.csv
+            │   └── blob : test
+        ```
+
+        !!! attention "Attention"
+
+            As of now, there is no **data versioning**. Meaning that if the `blob_path` already exists, it will be
+            overwritten with new datas.
+
 
         Args:
-            dataframe (pd.DataFrame): _description_
-            container_name (str): _description_
-            blob_path (str): _description_
+            dataframe (pd.DataFrame): The dataframe you want to upload.
+            container_name (str): The name of the container on which you want to upload the dataframe.
+            blob_path (str): The path to the csv
         """
         self.create_container(container_name)
+
         blob_client = self.blob_service_client.get_blob_client(
             container=container_name,
             blob=blob_path,
         )
+
         try:
             blob_client.upload_blob(
                 dataframe.to_csv(index=False, header=True).encode(),
@@ -73,16 +145,41 @@ class BlobStorageInterface:
             )
             log.info(f"New dataset uploaded at blob path : {blob_path}.")
 
-    def download_blob_to_df(self, container_name: str, blob_path: str):
-        """_summary_
+    def download_blob_to_df(self, container_name: str, blob_path: str) -> pd.DataFrame:
+        """Download a `csv` file a the given `blob_path` location and renders it as a pandas datatrame.
+
+        ```bash
+        Storage_Account : workspaceperso5448820782
+            │
+            ├── Container : project-mlops-mk-5448820782
+            │   ├── blob : train
+            │   │           ├── x_train.csv
+            │   │           └── y_train.csv
+            │   └── blob : test
+        ```
+
+        ```python
+        from azure_helper.utils.blob_storage_interface import BlobStorageInterface
+
+        blob_storage_interface = BlobStorageInterface(
+            storage_acct_name="workspaceperso5448820782",
+            storage_acct_key="XXXXX-XXXX-XXXXX-XXXX",
+            )
+
+        df = blob_storage_interface.download_blob_to_df(
+            container_name="project-mlops-mk-5448820782",
+            blob_path="train/x_train.csv",
+        )
+        ```
 
         Args:
-            container_name (str): _description_
-            blob_path (str): _description_
+            container_name (str): The name of the container.
+            blob_path (str): The path to the `csv` file.
 
         Returns:
-            _type_: _description_
+            pd.DataFrame: the `csv` file as a dataframe.
         """
+
         blob_client = self.blob_service_client.get_blob_client(
             container=container_name,
             blob=blob_path,

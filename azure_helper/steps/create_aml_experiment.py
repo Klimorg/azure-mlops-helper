@@ -44,6 +44,11 @@ class AMLExperiment:
         self.clean_after_run = clean_after_run
         self.training_script_path = training_script_path
 
+        self.compute_target = aml_interface.get_compute_target(
+            aml_compute_name,
+            aml_compute_instance,
+        )
+
     def generate_run_config(self) -> RunConfiguration:
 
         run_config = RunConfiguration()
@@ -57,11 +62,7 @@ class AMLExperiment:
 
         run_config.environment = aml_run_env
 
-        compute_target = self.interface.get_compute_target(
-            self.aml_compute_name,
-            self.aml_compute_instance,
-        )
-        run_config.target = compute_target
+        run_config.target = self.compute_target
 
         return run_config
 
@@ -116,12 +117,7 @@ class AMLExperiment:
             docker_runtime_config=docker_config,
         )
 
-        compute_target = self.interface.get_compute_target(
-            self.aml_compute_name,
-            self.aml_compute_instance,
-        )
-
-        script.run_config.target = compute_target
+        script.run_config.target = self.compute_target
 
         aml_run_env = Environment.get(
             self.interface.workspace,
@@ -136,4 +132,4 @@ class AMLExperiment:
 
         if self.clean_after_run:
             log.info("Deleting compute instance.")
-            compute_target.delete()
+            self.compute_target.delete()

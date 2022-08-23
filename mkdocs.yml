@@ -28,6 +28,9 @@ theme:
         text: Roboto
         code: JetBrains Mono Medium
 
+watch:
+- azure_helper
+
 plugins:
     - search:
           lang: fr
@@ -70,8 +73,16 @@ extra_javascript:
 
 nav:
     - Accueil: index.md
-    # - Steps:
-    - Data creation: steps/create_data.md
-    - Environment Creation: steps/create_aml_env.md
-    - Experiment Creation: steps/create_aml_experiment.md
-    - Training loop: steps/train.md
+    - Utils:
+        - AML Interface: utils/aml_interface.md
+        - Blob Storage Interface: utils/blob_storage_interface.md
+    - Steps:
+        - Various steps: steps/rationale.md
+        - Environment Creation: steps/create_aml_env.md
+        - Experiment Creation: 
+            - Create Experiment: steps/create_aml_experiment.md
+            - Training loop: steps/train.md
+        - Model Deployment: 
+            - Deployment class: steps/deploy_aml_model.md
+            - Inference config: steps/inference_config.md
+        - Data creation: steps/create_data.md
