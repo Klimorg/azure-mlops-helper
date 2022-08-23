@@ -18,6 +18,7 @@ def get_logger():
         "<level>{level: <8}</level> - "
         "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> - "
         f"{APP_LOGGER_NAME} - "
+        "<cyan>{process}</cyan> - "
         "<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - "
         "<level>{message}</level>"
     )

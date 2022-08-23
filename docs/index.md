@@ -6,4 +6,4 @@ TBA
 
 ## Resources
 
-TBA
+* [Open source cheat sheets for Azure ML](https://azure.github.io/azureml-cheatsheets/)
