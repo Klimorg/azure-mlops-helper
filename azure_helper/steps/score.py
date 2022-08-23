@@ -1,9 +1,9 @@
 """
-init() and run(data) are both reserved functions with reserved variables needed to deploy a model, whether it is on ACI or AKS.
+`init()` and `run()` are both reserved functions with reserved variables needed to deploy a model, whether it is on ACI or AKS.
 
-init() defines how to laod the model.
+`init()` defines how to load the model.
 
-run(data) defines how to handle the datas that are fed to the model from the REST endpoint.
+`run()` defines how to handle the datas that are fed to the model from the REST endpoint.
 """
 import json
 
@@ -13,8 +13,7 @@ from azureml.core.model import Model
 
 
 def init():
-    """_summary_
-    """
+    """_summary_"""
     global model
     model_path = Model.get_model_path(MODEL_NAME)
     model = joblib.load(model_path)

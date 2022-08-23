@@ -19,7 +19,11 @@ class DeploymentSettings(BaseModel):
     """_summary_
 
     Args:
-        BaseModel (_type_): _description_
+        deployment_service_name (str): _description_
+        cpu_cores (str): _description_. Defaults to 1.
+        gpu_cores (str): _description_. Defaults to 0.
+        memory_gb (str): _description_. Defaults to 1.
+        enable_app_insights (str): _description_. Defaults to True.
     """
 
     deployment_service_name: str

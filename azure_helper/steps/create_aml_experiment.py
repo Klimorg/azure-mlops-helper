@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 from typing import List
 
@@ -50,6 +49,11 @@ class AMLExperiment:
         )
 
     def generate_run_config(self) -> RunConfiguration:
+        """_summary_
+
+        Returns:
+            RunConfiguration: _description_
+        """
 
         run_config = RunConfiguration()
         docker_config = DockerConfiguration(use_docker=True)

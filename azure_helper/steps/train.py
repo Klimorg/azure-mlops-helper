@@ -1,7 +1,9 @@
 import os
 from abc import ABC, abstractmethod
 from pathlib import Path
+from typing import List
 
+import pandas as pd
 from azureml.core import Dataset, Datastore, Run
 from azureml.core.model import Model
 from skl2onnx import __max_supported_opset__, convert_sklearn
@@ -70,7 +72,7 @@ class TrainingLoopExemple(Train):
         self.trainig_datastore = trainig_datastore
         self.datastore = Datastore.get(run.experiment.workspace, trainig_datastore)
 
-    def get_df_from_datastore_path(self, datastore, datastore_path):
+    def get_df_from_datastore_path(self, datastore, datastore_path) -> pd.DataFrame:
         """_summary_
 
         Args:
@@ -89,7 +91,7 @@ class TrainingLoopExemple(Train):
         )
         return dataset.to_pandas_dataframe()
 
-    def prepare_data(self):
+    def prepare_data(self) -> List[pd.DataFrame]:
         """_summary_
 
         Returns:
@@ -147,22 +149,19 @@ class TrainingLoopExemple(Train):
         model_f1_score = f1_score(y_test, y_pred)
         self.run.log("F1_Score", model_f1_score)
 
-    def save_model(self, model):
+    def save_model(self, model) -> Path:
         """_summary_
 
         Args:
             model (_type_): _description_
 
         Returns:
-            _type_: _description_
+            Path: _description_
         """
         log.info("Saving model to ONNX format.")
         output_dir = Path("outputs")
         output_dir.mkdir(parents=True, exist_ok=True)
-        # output_dir = os.path.join(__here__, "outputs")
-        # os.makedirs(output_dir, exist_ok=True)
         model_path = output_dir / Path("model.onnx")
-        # model_path = os.path.join(output_dir, "model.pkl")
 
         initial_types = [("float_input", FloatTensorType([None, model.n_features_in_]))]
         model_onnx = convert_sklearn(

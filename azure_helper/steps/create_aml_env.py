@@ -10,10 +10,11 @@ log = get_logger()
 
 
 class EnvSpecs(BaseModel):
-    """_summary_
+    """Pydantic class used
 
     Args:
-        BaseModel (_type_): _description_
+        flavor (str): _description_
+        spec_file (Path): _description_
     """
 
     flavor: str
@@ -60,14 +61,14 @@ class AMLEnvironment:
         else:
             raise FileNotFoundError
 
-    def retrieve_whl_filepath(self):
+    def retrieve_whl_filepath(self) -> Path:
         """_summary_
 
         Raises:
             FileNotFoundError: _description_
 
         Returns:
-            _type_: _description_
+            Path: _description_
         """
         try:
             self.validate_dir()
@@ -99,7 +100,7 @@ class AMLEnvironment:
         Args:
             env_name (str): The name of the environment that will be build.
             env_specs (EnvSpecs): The specifications used to create the environement (ie pip, conda, or docker).
-            aml_interface (AMLInterface): The AML interface which will be responsible to register the evnironment in the right workspace.
+            aml_interface (AMLInterface): The AML interface which will be responsible to register the environment in the right workspace.
 
         Raises:
             ValueError: _description_
