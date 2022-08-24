@@ -171,8 +171,6 @@ class TestAMLExperiment:
         mock_aml_inteface = mocker.patch(f"{test_module}.AMLInterface")
         # this class is instantiated in AMLExperiment and must return an object when submitted
         # so we mock both : the instantiated class and the returned object when submitted
-        mock_aml_inteface_obj = Mock()
-        mock_aml_inteface.return_value = mock_aml_inteface_obj
 
         workspace_name = "test_workspace"
         resource_group = "test_rg"
@@ -206,4 +204,4 @@ class TestAMLExperiment:
         run_config = aml_exp.generate_run_config()
 
         assert run_config.environment == mock_env_obj
-        # assert run_config.target == "test_compute_name"
+        assert run_config.target == "local"
