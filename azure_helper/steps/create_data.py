@@ -10,7 +10,8 @@ class CreateData:
         train_datastore: str = "train",
         test_datastore: str = "test",
     ):
-        """_summary_
+        """This class is just a wrapper around the [BlobStorageInterface][azure_helper.utils.blob_storage_interface] and
+        might disappear, as it is not really needed.
 
         Args:
             project_name (str): _description_
@@ -27,12 +28,12 @@ class CreateData:
         x_train: pd.DataFrame,
         y_train: pd.DataFrame,
     ):
-        """_summary_
+        """Upload datas to the training blob storage.
 
         Args:
-            blob_storage_interface (BlobStorageInterface): _description_
-            x_train (pd.DataFrame): _description_
-            y_train (pd.DataFrame): _description_
+            blob_storage_interface (BlobStorageInterface): The interface with your storage account.
+            x_train (pd.DataFrame): Train datas.
+            y_train (pd.DataFrame): Train datas.
         """
         blob_storage_interface.upload_df_to_blob(
             dataframe=x_train,
@@ -51,12 +52,12 @@ class CreateData:
         x_valid: pd.DataFrame,
         y_valid: pd.DataFrame,
     ):
-        """_summary_
+        """Upload datas to the validation blob storage.
 
         Args:
-            blob_storage_interface (BlobStorageInterface): _description_
-            x_valid (pd.DataFrame): _description_
-            y_valid (pd.DataFrame): _description_
+            blob_storage_interface (BlobStorageInterface): The interface with your storage account.
+            x_valid (pd.DataFrame): Validation datas.
+            y_valid (pd.DataFrame): Validation datas.
         """
         # Data to be used during model validation
         blob_storage_interface.upload_df_to_blob(
@@ -76,12 +77,12 @@ class CreateData:
         x_test: pd.DataFrame,
         y_test: pd.DataFrame,
     ):
-        """_summary_
+        """Upload datas to the test blob storage.
 
         Args:
-            blob_storage_interface (BlobStorageInterface): _description_
-            x_test (pd.DataFrame): _description_
-            y_test (pd.DataFrame): _description_
+            blob_storage_interface (BlobStorageInterface): The interface with your storage account.
+            x_test (pd.DataFrame): Test datas.
+            y_test (pd.DataFrame): Test datas.
         """
         # Data to be used during model evaluation
         # So stored in the training container

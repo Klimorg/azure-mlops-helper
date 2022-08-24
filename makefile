@@ -36,3 +36,7 @@ install:
 .PHONY: build-project
 build-project: install-dev
 	hatch build
+
+.PHONY: dac
+dac:
+	python diagrams/dependencies.py

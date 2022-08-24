@@ -37,18 +37,21 @@ test_whl_dir = Path(__file__).parents[1] / Path("dist")
 
 class TestRetrieveWhlFilepath:
     def test_validate_dir(self, mocker, tmp_path, caplog):
-        dist_dir = tmp_path / Path("test")
-        dist_dir.mkdir()
+        private_wheel_location = tmp_path / Path("test")
+        private_wheel_location.mkdir()
 
         aml_env = AMLEnvironment(
-            dist_dir=dist_dir,
+            private_wheel_location=private_wheel_location,
             base_image="mcr.microsoft.com/azureml/curated/sklearn-1.0-ubuntu20.04-py38-cpu:28",
         )
 
         aml_env.validate_dir()
 
         assert len(caplog.records) == 1
-        assert f"Looking for wheel file in {dist_dir}." in caplog.records[0].message
+        assert (
+            f"Looking for wheel file in {private_wheel_location}."
+            in caplog.records[0].message
+        )
 
         mock_dir = mocker.patch(f"{test_module}.Path.is_dir")
         mock_dir.side_effect = [False]
@@ -57,12 +60,12 @@ class TestRetrieveWhlFilepath:
 
     def test_retrieve_whl_filepath_fails_no_dist_dir(self, mocker, tmp_path, caplog):
 
-        dist_dir = tmp_path / Path("test")
+        private_wheel_location = tmp_path / Path("test")
 
         mock_dir = mocker.patch(f"{test_module}.Path.is_dir")
         mock_dir.side_effect = [False]
         aml_env = AMLEnvironment(
-            dist_dir=dist_dir,
+            private_wheel_location=private_wheel_location,
             base_image="mcr.microsoft.com/azureml/curated/sklearn-1.0-ubuntu20.04-py38-cpu:28",
         )
 
@@ -71,7 +74,7 @@ class TestRetrieveWhlFilepath:
 
         assert len(caplog.records) == 1
         assert (
-            f"Couldn't find distribution directory {dist_dir}"
+            f"Couldn't find distribution directory {private_wheel_location}"
             in caplog.records[0].message
         )
 
@@ -82,7 +85,7 @@ class TestRetrieveWhlFilepath:
         whl_filepath.touch()
 
         aml_env = AMLEnvironment(
-            dist_dir=tmp_path,
+            private_wheel_location=tmp_path,
             base_image="mcr.microsoft.com/azureml/curated/sklearn-1.0-ubuntu20.04-py38-cpu:28",
         )
         with pytest.raises(FileNotFoundError):
@@ -98,7 +101,7 @@ class TestRetrieveWhlFilepath:
         whl_filepath.touch()
 
         aml_env = AMLEnvironment(
-            dist_dir=tmp_path,
+            private_wheel_location=tmp_path,
             base_image="mcr.microsoft.com/azureml/curated/sklearn-1.0-ubuntu20.04-py38-cpu:28",
         )
 
@@ -115,7 +118,7 @@ class TestRetrieveWhlFilepath:
 
         # Initiate the class
         env = AMLEnvironment(
-            dist_dir=tmp_path,
+            private_wheel_location=tmp_path,
             base_image="mcr.microsoft.com/azureml/curated/sklearn-1.0-ubuntu20.04-py38-cpu:28",
         )
 
@@ -161,7 +164,7 @@ class TestRetrieveWhlFilepath:
 
         # Initiate the class
         env = AMLEnvironment(
-            dist_dir=tmp_path,
+            private_wheel_location=tmp_path,
             base_image="mcr.microsoft.com/azureml/curated/sklearn-1.0-ubuntu20.04-py38-cpu:28",
         )
 
@@ -205,7 +208,6 @@ class TestRetrieveWhlFilepath:
             exist_ok=True,
         )
 
-        log.warning(f"{mock_env_obj.python.conda_dependencies.pip_packages}")
         # pkg_list = [pkg for pkg in mock_env_obj.python.conda_dependencies.pip_packages]
         # assert "numpy==1.18.2" in pkg_list
 
@@ -215,7 +217,7 @@ class TestRetrieveWhlFilepath:
 
         # Initiate the class
         env = AMLEnvironment(
-            dist_dir=tmp_path,
+            private_wheel_location=tmp_path,
             base_image="mcr.microsoft.com/azureml/curated/sklearn-1.0-ubuntu20.04-py38-cpu:28",
         )
 

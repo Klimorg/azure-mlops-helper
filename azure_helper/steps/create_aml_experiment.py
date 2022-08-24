@@ -21,18 +21,22 @@ class AMLExperiment:
         env_name: str,
         experiment_name: str,
         training_script_path: str,
+        min_node: int = 1,
+        max_node: int = 2,
         clean_after_run: bool = True,
     ) -> None:
-        """_summary_
+        """Instantiate the creation of an AzureML Experiment needed to train a model.
 
         Args:
-            aml_interface (AMLInterface): _description_
-            aml_compute_name (str): _description_
-            aml_compute_instance (str): _description_
-            env_name (str): _description_
-            experiment_name (str): _description_
-            training_script_path (str): _description_
-            clean_after_run (bool, optional): _description_. Defaults to True.
+            aml_interface (AMLInterface): The aml_interface needed to register the experiment in the workspace.
+            aml_compute_name (str): The name of the compute instance used.
+            aml_compute_instance (str): The size (as in `vm_size`) of the compute instance used.
+            min_node (int, optional): The minimum number of nodes to use on the compute instance. Defaults to 1.
+            max_node (int, optional): The maximum number of nodes to use on the compute instance. Defaults to 2.
+            env_name (str): The name of the training environment.
+            experiment_name (str): The name of the experiment.
+            training_script_path (str): The path to the training loop script.
+            clean_after_run (bool, optional): Whether or not you want to delete the compute instance after training. Defaults to True.
         """
 
         self.interface = aml_interface
@@ -44,15 +48,16 @@ class AMLExperiment:
         self.training_script_path = training_script_path
 
         self.compute_target = aml_interface.get_compute_target(
-            aml_compute_name,
-            aml_compute_instance,
+            aml_compute_name, aml_compute_instance, min_node, max_node
         )
 
     def generate_run_config(self) -> RunConfiguration:
-        """_summary_
+        """Generate the run configuration of the experiment.
+
+        By definition, the run configuration is the combination of the training environment and the compute instance.
 
         Returns:
-            RunConfiguration: _description_
+            RunConfiguration: The run configuration of the experiment.
         """
 
         run_config = RunConfiguration()
@@ -71,10 +76,10 @@ class AMLExperiment:
         return run_config
 
     def submit_pipeline(self, steps: List[PythonScriptStep]):
-        """_summary_
+        """Used to submit a training pipeline.
 
         Args:
-            steps (List[PythonScriptStep]): _description_
+            steps (List[PythonScriptStep]): The different steps of the training pipeline.
 
         https://github.com/Azure/MachineLearningNotebooks/blob/master/how-to-use-azureml/machine-learning-pipelines/intro-to-pipelines/aml-pipelines-getting-started.ipynb
 
@@ -95,6 +100,7 @@ class AMLExperiment:
             self.aml_compute_name,
             self.aml_compute_instance,
         )
+        # TODO : add the run config.
 
         pipeline = Pipeline(workspace=self.interface.workspace, steps=steps)
 
@@ -108,7 +114,16 @@ class AMLExperiment:
             compute_target.delete()
 
     def submit_run(self):
-        """_summary_"""
+        """Submit your training loop and create an experiment.
+
+        This experiment is defined by the use of the `ScriptRunConfig` class.
+        This means that you have to provide the path to a script defining your training loop, defined by the parameters
+        `source_directory` and `script` of the `ScriptRunConfig` class, `script` being the path of your training loop
+        relative to `source_directory`.
+
+        For example purpose, a training loop example is provided [TrainingLoopExample][azure_helper.steps.train] is
+        provided, as well as an abstract class if you want to use this training loop structure, but you're not forced to.
+        """
 
         experiment = Experiment(self.interface.workspace, self.experiment_name)
         # src_dir = __here__
@@ -121,13 +136,15 @@ class AMLExperiment:
             docker_runtime_config=docker_config,
         )
 
-        script.run_config.target = self.compute_target
+        script.run_config = self.generate_run_config()
 
-        aml_run_env = Environment.get(
-            self.interface.workspace,
-            self.env_name,
-        )
-        script.run_config.environment = aml_run_env
+        # script.run_config.target = self.compute_target
+
+        # aml_run_env = Environment.get(
+        #     self.interface.workspace,
+        #     self.env_name,
+        # )
+        # script.run_config.environment = aml_run_env
 
         log.info("Submitting Run")
         run = experiment.submit(config=script)

@@ -19,7 +19,7 @@ class AMLInterface:
         workspace_name: str,
         resource_group: str,
     ):
-        """Instantiate the connection to an Azure Machine Learning Workspace and its connection to Azure DevOps.
+        """Instantiate the connection to an Azure Machine Learning Workspace.
 
         This class is the principal interface with the other ones. It uses a Service Principle **with Password Authentication** connection to interact with Azure
         Machine Learning. The Service Principle credentials needed can be encapsulated in the following Pydantic class.
@@ -136,7 +136,9 @@ class AMLInterface:
             account_key=storage_acct_key,
         )
 
-    def register_aml_environment(self, environment: Environment):
+    def register_aml_environment(
+        self, environment: Environment, build_locally: bool = False
+    ):
         """Register the environment object in your workspace.
 
         An environement created by the [`AMLEnvironment`][azure_helper.steps.create_aml_env] class encapsulate in a Docker image
@@ -144,8 +146,15 @@ class AMLInterface:
 
         Args:
             environment (Environment): A reproducible Python environment for machine learning experiments.
+            build_locally (bool, optional): Whether you want to build locally your environment as a Docker image and push the image
+                to workspace ACR directly. This is recommended when users are iterating on the dockerfile since local build
+                can utilize cached layers. Defaults to False.
         """
         environment.register(workspace=self.workspace)
+        if build_locally:
+            environment.build_local(
+                self.workspace, useDocker=True, pushImageToWorkspaceAcr=True
+            )
 
     def get_compute_target(
         self, compute_name: str, vm_size: str = "", min_node: int = 1, max_node: int = 2

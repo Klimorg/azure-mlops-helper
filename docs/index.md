@@ -6,9 +6,11 @@ This library is intended to ease the various steps needed to enable the storage,
 
 This is highly inspired from the series of posts found in the [following blog](https://benalexkeen.com/creating-end-to-end-mlops-pipelines-using-azure-ml-and-azure-pipelines-part-1/).
 
-This is mostly a wrapper around azure-ml python classes and some glue code. 
+This is mostly a wrapper around azure-ml python classes and some glue code.
 
-**If you know what you are doing with AzureML, you'll probably don't need this library.**
+!!! info "Remark"
+
+    **If you know what you are doing with AzureML, you'll probably don't need this library.**
 
 ## Resources
 
