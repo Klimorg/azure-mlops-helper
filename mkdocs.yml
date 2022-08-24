@@ -79,10 +79,10 @@ nav:
     - Steps:
         - Various steps: steps/rationale.md
         - Environment Creation: steps/create_aml_env.md
-        - Experiment Creation: 
+        - Experiment Creation:
             - Create Experiment: steps/create_aml_experiment.md
             - Training loop: steps/train.md
-        - Model Deployment: 
+        - Model Deployment:
             - Deployment class: steps/deploy_aml_model.md
             - Inference config: steps/inference_config.md
         - Data creation: steps/create_data.md

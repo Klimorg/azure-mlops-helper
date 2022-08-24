@@ -81,7 +81,7 @@ class AMLEnvironment:
             self.validate_dir()
         except FileNotFoundError:
             log.error(
-                f"Couldn't find distribution directory {self.private_wheel_location}"
+                f"Couldn't find distribution directory {self.private_wheel_location}",
             )
             raise
 

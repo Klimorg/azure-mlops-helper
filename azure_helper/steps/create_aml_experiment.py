@@ -48,7 +48,10 @@ class AMLExperiment:
         self.training_script_path = training_script_path
 
         self.compute_target = aml_interface.get_compute_target(
-            aml_compute_name, aml_compute_instance, min_node, max_node
+            aml_compute_name,
+            aml_compute_instance,
+            min_node,
+            max_node,
         )
 
     def generate_run_config(self) -> RunConfiguration:

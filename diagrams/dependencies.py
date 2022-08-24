@@ -1,10 +1,12 @@
-from diagrams.programming.language import Python
 from diagrams import Cluster, Diagram, Edge
-from diagrams.onprem.container import Docker
 from diagrams.azure.ml import MachineLearningServiceWorkspaces as Workspace
+from diagrams.onprem.container import Docker
+from diagrams.programming.language import Python
 
 with Diagram(
-    "Azure MLOps helper dependency diagram", show=False, outformat=["svg", "png"]
+    "Azure MLOps helper dependency diagram",
+    show=False,
+    outformat=["svg", "png"],
 ) as dac:
     dac.dot.renderer = "cairo"
 

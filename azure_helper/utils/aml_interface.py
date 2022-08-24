@@ -137,7 +137,9 @@ class AMLInterface:
         )
 
     def register_aml_environment(
-        self, environment: Environment, build_locally: bool = False
+        self,
+        environment: Environment,
+        build_locally: bool = False,
     ):
         """Register the environment object in your workspace.
 
@@ -153,11 +155,17 @@ class AMLInterface:
         environment.register(workspace=self.workspace)
         if build_locally:
             environment.build_local(
-                self.workspace, useDocker=True, pushImageToWorkspaceAcr=True
+                self.workspace,
+                useDocker=True,
+                pushImageToWorkspaceAcr=True,
             )
 
     def get_compute_target(
-        self, compute_name: str, vm_size: str = "", min_node: int = 1, max_node: int = 2
+        self,
+        compute_name: str,
+        vm_size: str = "",
+        min_node: int = 1,
+        max_node: int = 2,
     ) -> ComputeTarget:
         """Instantiate a compute instance to train the models.
 

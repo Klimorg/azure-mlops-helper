@@ -105,7 +105,9 @@ class TrainingLoopExample(Train):
         self.datastore = Datastore.get(run.experiment.workspace, trainig_datastore)
 
     def get_df_from_datastore_path(
-        self, datastore: Datastore, datastore_path: str
+        self,
+        datastore: Datastore,
+        datastore_path: str,
     ) -> pd.DataFrame:
         """Utils function to fetch your datas from a datastore.
 
