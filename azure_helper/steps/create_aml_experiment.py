@@ -99,14 +99,9 @@ class AMLExperiment:
         # src_dir = __here__
         # src_dir = str(Path.cwd())
 
-        compute_target = self.interface.get_compute_target(
-            self.aml_compute_name,
-            self.aml_compute_instance,
-        )
-        # TODO : add the run config.
-
         pipeline = Pipeline(workspace=self.interface.workspace, steps=steps)
 
+        # TODO: add the validation method of the pipeline.
         log.info("Submitting Run")
         run = experiment.submit(config=pipeline)
         run.wait_for_completion(show_output=True)
@@ -114,7 +109,7 @@ class AMLExperiment:
 
         if self.clean_after_run:
             log.info("Deleting compute instance.")
-            compute_target.delete()
+            self.compute_target.delete()
 
     def submit_run(self):
         """Submit your training loop and create an experiment.
