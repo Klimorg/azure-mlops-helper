@@ -15,4 +15,4 @@ The idea being that each of theses steps if defined by a class of this package, 
 
 ## Diagram of dependances between the classes
 
-TODO
+![dependences](../includes/dependancy_diagram.svg)

@@ -80,7 +80,7 @@ class DeployModel:
         self,
         *args,
         **kwargs,
-    ) -> Webservice:
+    ):
         """_summary_
 
         Returns:
@@ -115,7 +115,7 @@ class DeployModel:
         aks_cluster_name: str,
         *args,
         **kwargs,
-    ) -> Webservice:
+    ):
         """_summary_
 
         Args:
