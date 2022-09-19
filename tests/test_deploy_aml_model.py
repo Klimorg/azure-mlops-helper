@@ -200,79 +200,79 @@ class TestDeployAMLModel:
 
         mock_service.wait_for_deployment.assert_called_once()
 
-    def test_deploy_aksservice_no_cluster(
-        self,
-        mocker,
-        caplog,
-    ):
-        aks_cluster_name = "test_aks_cluster_name"
+    # def test_deploy_aksservice_no_cluster(
+    #     self,
+    #     mocker,
+    #     caplog,
+    # ):
+    #     aks_cluster_name = "test_aks_cluster_name"
 
-        mock_compute_target = mocker.patch(f"{test_module}.ComputeTarget")
-        mock_compute_target.side_effect = ComputeTargetException
+    #     mock_compute_target = mocker.patch(f"{test_module}.ComputeTarget")
+    #     mock_compute_target.side_effect = ComputeTargetException
 
-        mock_compute = Mock()
-        mock_compute_target.create.return_value = mock_compute
+    #     mock_compute = Mock()
+    #     mock_compute_target.create.return_value = mock_compute
 
-        mock_aks_compute = mocker.patch(f"{test_module}.AksCompute")
+    #     mock_aks_compute = mocker.patch(f"{test_module}.AksCompute")
 
-        mock_get_inference_config = mocker.patch(
-            f"{test_module}.DeployModel.get_inference_config",
-        )
-        mock_config = Mock()
-        mock_get_inference_config.return_value = mock_config
+    #     mock_get_inference_config = mocker.patch(
+    #         f"{test_module}.DeployModel.get_inference_config",
+    #     )
+    #     mock_config = Mock()
+    #     mock_get_inference_config.return_value = mock_config
 
-        mock_aks_webservice = mocker.patch(f"{test_module}.AksWebservice")
+    #     mock_aks_webservice = mocker.patch(f"{test_module}.AksWebservice")
 
-        mock_Model = mocker.patch(f"{test_module}.Model")
-        mock_service = Mock()
-        mock_service.scoring_uri = "https://foo.bar/"
-        mock_Model.deploy.return_value = mock_service
+    #     mock_Model = mocker.patch(f"{test_module}.Model")
+    #     mock_service = Mock()
+    #     mock_service.scoring_uri = "https://foo.bar/"
+    #     mock_Model.deploy.return_value = mock_service
 
-        mock_env = mocker.patch(f"{test_module}.Environment")
+    #     mock_env = mocker.patch(f"{test_module}.Environment")
 
-        mock_aml_inteface = mocker.patch(f"{test_module}.AMLInterface")
+    #     mock_aml_inteface = mocker.patch(f"{test_module}.AMLInterface")
 
-        workspace_name = "test_workspace"
-        resource_group = "test_rg"
-        subscription_id = "test_sub_id"
+    #     workspace_name = "test_workspace"
+    #     resource_group = "test_rg"
+    #     subscription_id = "test_sub_id"
 
-        spn_credentials = {
-            "tenant_id": "test_tenant_id",
-            "service_principal_id": "test_spn_id",
-            "service_principal_password": "test_spn_passwd",
-        }
+    #     spn_credentials = {
+    #         "tenant_id": "test_tenant_id",
+    #         "service_principal_id": "test_spn_id",
+    #         "service_principal_password": "test_spn_passwd",
+    #     }
 
-        aml_interface = mock_aml_inteface(
-            spn_credentials,
-            subscription_id,
-            workspace_name,
-            resource_group,
-        )
+    #     aml_interface = mock_aml_inteface(
+    #         spn_credentials,
+    #         subscription_id,
+    #         workspace_name,
+    #         resource_group,
+    #     )
 
-        settings = DeploymentSettings(
-            deployment_service_name="test_deployment_service_name",
-            cpu_cores=1,
-            gpu_cores=0,
-            memory_gb=1,
-            enable_app_insights=True,
-        )
+    #     settings = DeploymentSettings(
+    #         deployment_service_name="test_deployment_service_name",
+    #         cpu_cores=1,
+    #         gpu_cores=0,
+    #         memory_gb=1,
+    #         enable_app_insights=True,
+    #     )
 
-        deployment = DeployModel(
-            aml_interface=aml_interface,
-            aml_env_name="test_aml_env_name",
-            model_name="test_model_name",
-            script_config_path=Path("test_data/test_score.py"),
-            deployment_settings=settings,
-        )
+    #     deployment = DeployModel(
+    #         aml_interface=aml_interface,
+    #         aml_env_name="test_aml_env_name",
+    #         model_name="test_model_name",
+    #         script_config_path=Path("test_data/test_score.py"),
+    #         deployment_settings=settings,
+    #     )
 
-        deployment.deploy_aksservice(
-            aks_cluster_name=aks_cluster_name,
-        )
+    #     deployment.deploy_aksservice(
+    #         aks_cluster_name=aks_cluster_name,
+    #     )
 
-        assert (
-            f"k8s cluster {aks_cluster_name} was not found in workspace test_workspace. Now provisioning one."
-            in caplog.records[0].message
-        )
+    #     assert (
+    #         f"k8s cluster {aks_cluster_name} was not found in workspace test_workspace. Now provisioning one."
+    #         in caplog.records[0].message
+    #     )
 
     def test_update_service(self, mocker):
 
