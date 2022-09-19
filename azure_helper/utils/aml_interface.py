@@ -194,7 +194,9 @@ class AMLInterface:
                 f"Compute target instantiated : {compute_target.status.serialize()}",
             )
         except ComputeTargetException as err:
-            log.info(f"No compute target found. Creating a new compute target. {err}")
+            log.warning(
+                f"No compute target found. Creating a new compute target. {err}",
+            )
             compute_config = AmlCompute.provisioning_configuration(
                 vm_size=vm_size,
                 min_nodes=min_node,

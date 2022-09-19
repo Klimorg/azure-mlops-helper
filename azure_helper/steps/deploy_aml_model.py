@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from azureml.core.compute import AksCompute
+from azureml.core.compute import AksCompute, ComputeTarget
 from azureml.core.environment import Environment
 from azureml.core.model import InferenceConfig, Model
 from azureml.core.webservice import AciWebservice, AksWebservice, Webservice
@@ -40,6 +40,7 @@ class DeployModel:
         aml_interface: AMLInterface,
         aml_env_name: str,
         model_name: str,
+        script_config_path: Path,
         deployment_settings: DeploymentSettings,
     ) -> None:
         """Instantiate the deployment of the model.
@@ -49,6 +50,7 @@ class DeployModel:
             aml_env_name (str): The name of the AMLEnvironment you will use to deploy the model. It is not necessarily
                 the same used to train the model.
             model_name (str): The name of the model you deploy.
+            script_config_path (Path): The location of the inference script.
             deployment_settings (DeploymentSettings): the basic settings of the deployment.
         """
 
@@ -57,16 +59,13 @@ class DeployModel:
 
         self.aml_env_name = aml_env_name
         self.model_name = model_name
+        self.script_config_path = script_config_path
         self.deployment_settings = deployment_settings
 
     def get_inference_config(
         self,
-        script_config_path: Path,
     ) -> InferenceConfig:
         """Fetch the inference script config needed to interact the endpoint deployed.
-
-        Args:
-            script_config_path (Path): The location of the script.
 
         Returns:
             InferenceConfig: The instantiated inference config.
@@ -77,7 +76,7 @@ class DeployModel:
             name=self.aml_env_name,
         )
         # scoring_script_path = os.path.join(__here__, "score.py")
-        scoring_script_path = str(script_config_path)
+        scoring_script_path = str(self.script_config_path)
         return InferenceConfig(
             entry_script=scoring_script_path,
             environment=aml_env,
@@ -85,16 +84,11 @@ class DeployModel:
 
     def deploy_aciservice(
         self,
-        script_config_path: Path,
         *args,
         **kwargs,
     ):
-        """Deploy an ACI service to serve the model.
-
-        Args:
-            script_config_path (Path): The location of the script for the inference config.
-        """
-        inference_config = self.get_inference_config(script_config_path)
+        """Deploy an ACI service to serve the model."""
+        inference_config = self.get_inference_config()
 
         aci_deployment = AciWebservice.deploy_configuration(
             *args,
@@ -107,11 +101,11 @@ class DeployModel:
         model = self.workspace.models.get(self.model_name)
 
         service = Model.deploy(
-            self.workspace,
-            self.deployment_settings.deployment_service_name,
-            [model],
-            inference_config,
-            aci_deployment,
+            workspace=self.workspace,
+            name=self.deployment_settings.deployment_service_name,
+            models=[model],
+            inference_config=inference_config,
+            deployment_config=aci_deployment,
         )
 
         service.wait_for_deployment(show_output=True)
@@ -120,32 +114,42 @@ class DeployModel:
 
     def deploy_aksservice(
         self,
-        script_config_path: Path,
         aks_cluster_name: str,
         *args,
         **kwargs,
     ):
         """Deploy an AKS service to serve the model.
 
-
         Args:
             script_config_path (Path): The location of the script for the inference config.
             aks_cluster_name (str): The name of the k8s cluster on which you want to deploy. Contrary to an ACI deployment,
                 you need a pre-existing k8s cluster in your workspace to use AKS deployment.
         """
-
+        # Verify that cluster does not exist already
         try:
-            aks_target = AksCompute(self.workspace, name=aks_cluster_name)
+            aks_target = ComputeTarget(self.workspace, name=aks_cluster_name)
             log.info(
                 f"k8s cluster {aks_cluster_name} found in workspace {self.workspace}",
             )
         except ComputeTargetException:
-            log.error(
-                f"k8s cluster {aks_cluster_name} was not found in workspace {self.workspace}",
+            log.warning(
+                f"k8s cluster {aks_cluster_name} was not found in workspace {self.workspace}. Now provisioning one.",
             )
-            raise
+            # Use the default configuration (can also provide parameters to customize)
+            provisioning_config = AksCompute.provisioning_configuration()
 
-        inference_config = self.get_inference_config(script_config_path)
+            # Create the cluster
+            aks_target = ComputeTarget.create(
+                workspace=self.workspace,
+                name=aks_cluster_name,
+                provisioning_configuration=provisioning_config,
+            )
+            aks_target.wait_for_completion(
+                show_output=True,
+                timeout_in_minutes=10,
+            )
+
+        inference_config = self.get_inference_config()
 
         aks_deployment = AksWebservice.deploy_configuration(
             *args,
@@ -158,12 +162,12 @@ class DeployModel:
         model = self.workspace.models.get(self.model_name)
 
         service = Model.deploy(
-            self.workspace,
-            self.deployment_settings.deployment_service_name,
-            [model],
-            inference_config,
-            aks_deployment,
-            aks_target,
+            workspace=self.workspace,
+            name=self.deployment_settings.deployment_service_name,
+            models=[model],
+            inference_config=inference_config,
+            deployment_config=aks_deployment,
+            deployment_target=aks_target,
         )
 
         service.wait_for_deployment(show_output=True)
@@ -172,14 +176,9 @@ class DeployModel:
 
     def update_service(
         self,
-        script_config_path: Path,
     ):
-        """Update an already existing service, ACI or AKS.
-
-        Args:
-            script_config_path (Path): The location of the script for the inference config.
-        """
-        inference_config = self.get_inference_config(script_config_path)
+        """Update an already existing service, ACI or AKS."""
+        inference_config = self.get_inference_config()
         service = Webservice(
             name=self.deployment_settings.deployment_service_name,
             workspace=self.workspace,

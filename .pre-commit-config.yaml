@@ -21,7 +21,7 @@ repos:
           - id: add-trailing-comma
 
     - repo: https://github.com/ambv/black
-      rev: 22.6.0
+      rev: 22.8.0
       hooks:
           - id: black
 
@@ -37,7 +37,7 @@ repos:
   #     - id: dockerfilelint
 
     - repo: https://github.com/sirosen/check-jsonschema
-      rev: 0.17.1
+      rev: 0.18.3
       hooks:
           - id: check-github-actions
           - id: check-github-workflows

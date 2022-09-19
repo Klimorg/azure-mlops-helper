@@ -1,1 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="0" time="2.065" timestamp="2022-09-16T22:24:26.018836" hostname="vorph-maison" /></testsuites>
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="26" time="5.694" timestamp="2022-09-19T15:50:51.712672" hostname="dell-mathieu"><testcase classname="tests.test_blob_storage_interface.TestBlobStorageInterface" name="test_init" time="0.004" /><testcase classname="tests.test_aml_interface.TestAMLInterface" name="test_get_compute_target" time="0.014" /><testcase classname="tests.test_blob_storage_interface.TestBlobStorageInterface" name="test_create_container" time="0.012" /><testcase classname="tests.test_create_aml_env.TestRetrieveWhlFilepath" name="test_validate_dir" time="0.010" /><testcase classname="tests.test_create_aml_env.TestRetrieveWhlFilepath" name="test_retrieve_whl_filepath_fails_no_dist_dir" time="0.011" /><testcase classname="tests.test_aml_interface.TestAMLInterface" name="test_register_datastore" time="0.008" /><testcase classname="tests.test_blob_storage_interface.TestBlobStorageInterface" name="test_upload_df_to_blob" time="0.016" /><testcase classname="tests.test_blob_storage_interface.TestBlobStorageInterface" name="test_download_blob_to_df" time="0.013" /><testcase classname="tests.test_create_aml_experiment.TestAMLExperiment" name="test_generate_run_config" time="0.019" /><testcase classname="tests.test_create_aml_experiment.TestAMLExperiment" name="test_submit_run_no_clean_after_run" time="0.038" /><testcase classname="tests.test_create_aml_env.TestRetrieveWhlFilepath" name="test_create_aml_environment_with_docker" time="0.012" /><testcase classname="tests.test_create_aml_env.TestRetrieveWhlFilepath" name="test_retrieve_whl_filepath_fails_no_file" time="0.009" /><testcase classname="tests.test_create_aml_env.TestRetrieveWhlFilepath" name="test_create_aml_environment_with_error" time="0.010" /><testcase classname="tests.test_create_aml_env.TestRetrieveWhlFilepath" name="test_create_aml_environment_with_pip" time="0.012" /><testcase classname="tests.test_create_aml_experiment.TestAMLExperiment" name="test_submit_run" time="0.043" /><testcase classname="tests.test_create_aml_env.TestRetrieveWhlFilepath" name="test_retrieve_whl_filepath" time="0.014" /><testcase classname="tests.test_deploy_aml_model.TestDeployAMLModel" name="test_get_inference_config" time="0.009" /><testcase classname="tests.test_create_data.TestCreateClassificationData" name="test_upload_test_data" time="0.011" /><testcase classname="tests.test_create_data.TestCreateClassificationData" name="test_upload_validation_data" time="0.011" /><testcase classname="tests.test_create_data.TestCreateClassificationData" name="test_upload_training_data" time="0.008" /><testcase classname="tests.test_deploy_aml_model.TestDeployAMLModel" name="test_deploy_aksservice" time="0.022" /><testcase classname="tests.test_deploy_aml_model.TestDeployAMLModel" name="test_update_service" time="0.008" /><testcase classname="tests.test_create_data.TestCreateClassificationData" name="test_init" time="0.010" /><testcase classname="tests.test_deploy_aml_model.TestDeployAMLModel" name="test_deploy_aksservice_no_cluster" time="0.014"><failure message="TypeError: __init__() missing 1 required positional argument: 'exception_message'">tests/test_deploy_aml_model.py:268: in test_deploy_aksservice_no_cluster
+    deployment.deploy_aksservice(
+        aks_cluster_name = 'test_aks_cluster_name'
+        aml_interface = &lt;MagicMock name='AMLInterface()' id='139962071306192'&gt;
+        caplog     = &lt;_pytest.logging.LogCaptureFixture object at 0x7f4b758daeb0&gt;
+        deployment = &lt;azure_helper.steps.deploy_aml_model.DeployModel object at 0x7f4b758b0e20&gt;
+        mock_Model = &lt;MagicMock name='Model' id='139962071205248'&gt;
+        mock_aks_compute = &lt;MagicMock name='AksCompute' id='139962071178208'&gt;
+        mock_aks_webservice = &lt;MagicMock name='AksWebservice' id='139962071136192'&gt;
+        mock_aml_inteface = &lt;MagicMock name='AMLInterface' id='139962071282160'&gt;
+        mock_compute = &lt;Mock name='ComputeTarget.create()' id='139962071396464'&gt;
+        mock_compute_target = &lt;MagicMock name='ComputeTarget' id='139962071493360'&gt;
+        mock_config = &lt;Mock name='get_inference_config()' id='139962071136048'&gt;
+        mock_env   = &lt;MagicMock name='Environment' id='139962071245632'&gt;
+        mock_get_inference_config = &lt;MagicMock name='get_inference_config' id='139962071501168'&gt;
+        mock_service = &lt;Mock name='Model.deploy()' id='139962071233344'&gt;
+        mocker     = &lt;pytest_mock.plugin.MockerFixture object at 0x7f4b758e0e20&gt;
+        resource_group = 'test_rg'
+        self       = &lt;test_deploy_aml_model.TestDeployAMLModel object at 0x7f4b75910eb0&gt;
+        settings   = DeploymentSettings(deployment_service_name='test_deployment_service_name', cpu_cores=1, gpu_cores=0, memory_gb=1, enable_app_insights=True)
+        spn_credentials = {'service_principal_id': 'test_spn_id',
+ 'service_principal_password': 'test_spn_passwd',
+ 'tenant_id': 'test_tenant_id'}
+        subscription_id = 'test_sub_id'
+        workspace_name = 'test_workspace'
+azure_helper/steps/deploy_aml_model.py:130: in deploy_aksservice
+    aks_target = ComputeTarget(self.workspace, name=aks_cluster_name)
+        aks_cluster_name = 'test_aks_cluster_name'
+        args       = ()
+        kwargs     = {}
+        self       = &lt;azure_helper.steps.deploy_aml_model.DeployModel object at 0x7f4b758b0e20&gt;
+../../../miniconda3/envs/mlops/lib/python3.8/unittest/mock.py:1081: in __call__
+    return self._mock_call(*args, **kwargs)
+        args       = (&lt;MagicMock name='AMLInterface().workspace' id='139962071322432'&gt;,)
+        kwargs     = {'name': 'test_aks_cluster_name'}
+        self       = &lt;MagicMock name='ComputeTarget' id='139962071493360'&gt;
+../../../miniconda3/envs/mlops/lib/python3.8/unittest/mock.py:1085: in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+        args       = (&lt;MagicMock name='AMLInterface().workspace' id='139962071322432'&gt;,)
+        kwargs     = {'name': 'test_aks_cluster_name'}
+        self       = &lt;MagicMock name='ComputeTarget' id='139962071493360'&gt;
+../../../miniconda3/envs/mlops/lib/python3.8/unittest/mock.py:1140: in _execute_mock_call
+    raise effect
+E   TypeError: __init__() missing 1 required positional argument: 'exception_message'
+        args       = (&lt;MagicMock name='AMLInterface().workspace' id='139962071322432'&gt;,)
+        effect     = &lt;class 'azureml.exceptions._azureml_exception.ComputeTargetException'&gt;
+        kwargs     = {'name': 'test_aks_cluster_name'}
+        self       = &lt;MagicMock name='ComputeTarget' id='139962071493360'&gt;</failure></testcase><testcase classname="tests.test_create_aml_experiment.TestAMLExperiment" name="test_submit_ipeline" time="0.016" /><testcase classname="tests.test_deploy_aml_model.TestDeployAMLModel" name="test_deploy_aciservice" time="0.012" /></testsuite></testsuites>
