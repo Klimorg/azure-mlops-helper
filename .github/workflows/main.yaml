@@ -57,6 +57,7 @@ jobs:
             - name: Build package
               run: hatch build
 
+            # push only if admin user
             - if: ${{ github.actor != 'dependabot[bot]' }}
               name: upload to pypi server
               run: hatch publish
