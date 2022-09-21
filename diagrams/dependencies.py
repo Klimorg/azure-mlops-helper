@@ -1,6 +1,10 @@
 from diagrams import Cluster, Diagram, Edge
+from diagrams.azure.database import BlobStorage
 from diagrams.azure.devops import Pipelines, Repos
+from diagrams.azure.general import Resourcegroups
+from diagrams.azure.identity import ActiveDirectory
 from diagrams.azure.ml import MachineLearningServiceWorkspaces as Workspace
+from diagrams.azure.security import KeyVaults
 from diagrams.onprem.container import Docker
 from diagrams.programming.language import Python
 
@@ -21,25 +25,20 @@ with Diagram(
 
         exp = Python("AMLExperiment")
 
-    with Cluster("Workspace"):
-        ws = Workspace("Workspace")
+    with Cluster("RG"):
+        az = Resourcegroups("Home")
+        with Cluster("Workspace"):
+            ws = Workspace("Workspace")
+            with Cluster("Password Storage"):
+                kv = KeyVaults("KeyVault")
+                ad = ActiveDirectory("Spn")
+                blob = BlobStorage("BlobStorage")
 
-        with Cluster("Assets"):
-            ws_env = Workspace("Environments")
-            ws_data = Workspace("Datastores")
-            ws_exp = Workspace("Experiments")
-            ws_model = Workspace("Models")
-
-    env << interface
-    interface >> Edge(label="register environment") >> ws_env
-
-    data << interface
-    interface >> Edge(label="register datastore") >> ws_data
-
-    exp << Edge(label="fetch workspace") << interface
-    exp << Edge(label="fetch env") << ws_env
-    exp >> Edge(label="submit_run") >> ws_exp
-    exp >> Edge(label="register_model") >> ws_model
+            with Cluster("Assets"):
+                ws_env = Workspace("Environments")
+                ws_data = Workspace("Datastores")
+                ws_exp = Workspace("Experiments")
+                ws_model = Workspace("Models")
 
     with Cluster("Repo"):
         Repos("Repo")
@@ -60,6 +59,17 @@ with Diagram(
                 >> Edge(label="trigger")
                 >> devops_exp
             )
+    env << interface
+    interface >> Edge(label="register environment") >> ws_env
+
+    data >> Edge(label="data storage") >> blob
+    blob << interface
+    interface >> Edge(label="register datastore") >> ws_data
+
+    exp >> Edge(label="fetch workspace") >> interface
+    exp >> Edge(label="fetch env") >> ws_env
+    exp >> Edge(label="submit run") >> ws_exp
+    exp >> Edge(label="register model") >> ws_model
 
     devops_data >> data
     devops_env >> env
