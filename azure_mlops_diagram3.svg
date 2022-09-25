@@ -5,7 +5,7 @@
    viewBox="0 0 1800 1750"
    version="1.1"
    id="svg3625"
-   sodipodi:docname="azure_mlops_diagram.svg"
+   sodipodi:docname="azure_mlops_diagram3.svg"
    inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -23,7 +23,6 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -47,8 +46,8 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:zoom="0.60730069"
-     inkscape:cx="1691.0898"
-     inkscape:cy="1238.2663"
+     inkscape:cx="1376.5833"
+     inkscape:cy="1276.1388"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -59,44 +58,6 @@
      inkscape:document-units="pt" />
   <defs
      id="defs2534">
-    <marker
-       style="overflow:visible"
-       id="marker18189"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="Square"
-       markerWidth="5.6666665"
-       markerHeight="5.6666665"
-       viewBox="0 0 5.6666667 5.6666667"
-       inkscape:isstock="true"
-       inkscape:collect="always"
-       preserveAspectRatio="xMidYMid">
-      <path
-         transform="scale(0.5)"
-         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
-         d="M -5,-5 V 5 H 5 V -5 Z"
-         id="path18187" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="Square"
-       refX="0"
-       refY="0"
-       orient="auto"
-       inkscape:stockid="Square"
-       markerWidth="5.6666665"
-       markerHeight="5.6666665"
-       viewBox="0 0 5.6666667 5.6666667"
-       inkscape:isstock="true"
-       inkscape:collect="always"
-       preserveAspectRatio="xMidYMid">
-      <path
-         transform="scale(0.5)"
-         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
-         d="M -5,-5 V 5 H 5 V -5 Z"
-         id="Squere" />
-    </marker>
     <marker
        inkscape:isstock="true"
        style="overflow:visible"
@@ -119,11 +80,7 @@
        refX="0"
        refY="0"
        orient="auto"
-       inkscape:stockid="Arrow1Lend"
-       viewBox="0 0 17.773854 10.156488"
-       markerWidth="17.773853"
-       markerHeight="10.156488"
-       preserveAspectRatio="xMidYMid">
+       inkscape:stockid="Arrow1Lend">
       <path
          transform="matrix(-0.8,0,0,-0.8,-10,0)"
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
@@ -141,7 +98,7 @@
        inkscape:stockid="Arrow1Lend">
       <path
          transform="matrix(-0.8,0,0,-0.8,-10,0)"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
          id="path35717"
          inkscape:connector-curvature="0" />
@@ -1261,7 +1218,7 @@
       <path
          inkscape:connector-curvature="0"
          transform="matrix(-0.8,0,0,-0.8,-10,0)"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
          id="path35717-2-9-0" />
     </marker>
@@ -1279,6 +1236,63 @@
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
          id="path35717-2-9-0-7" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker64839-4"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend"
+       viewBox="0 0 17.773854 10.156488"
+       markerWidth="17.773853"
+       markerHeight="10.156488"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path64837-2"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Square"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Square"
+       markerWidth="5.6666665"
+       markerHeight="5.6666665"
+       viewBox="0 0 5.6666667 5.6666667"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M -5,-5 V 5 H 5 V -5 Z"
+         id="Squere" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker18189"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Square"
+       markerWidth="5.6666665"
+       markerHeight="5.6666665"
+       viewBox="0 0 5.6666667 5.6666667"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M -5,-5 V 5 H 5 V -5 Z"
+         id="path18187" />
     </marker>
   </defs>
   <use
@@ -2495,590 +2509,6 @@
          width="100%"
          height="100%" />
     </g>
-  </g>
-  <g
-     id="g4626"
-     transform="translate(294.6868,-271.5627)">
-    <path
-       style="fill:#e3f5fd;fill-opacity:1;fill-rule:nonzero;stroke:#aeb5bd;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1"
-       d="m 791,742 c 0,0 93,0 93,0 6,0 12,-6 12,-12 0,0 0,-151 0,-151 0,-6 -6,-12 -12,-12 0,0 -93,0 -93,0 -6,0 -12,6 -12,12 0,0 0,151 0,151 0,6 6,12 12,12"
-       id="path2658"
-       inkscape:connector-curvature="0" />
-    <g
-       style="fill:#2b3335;fill-opacity:1"
-       id="g2682">
-      <use
-         xlink:href="#glyph1-1"
-         x="787"
-         y="580.60156"
-         id="use2660"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph1-2"
-         x="797.5"
-         y="580.60156"
-         id="use2662"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph1-3"
-         x="804.25"
-         y="580.60156"
-         id="use2664"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph1-16"
-         x="808"
-         y="580.60156"
-         id="use2666"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph1-9"
-         x="813.25"
-         y="580.60156"
-         id="use2668"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph1-12"
-         x="818.5"
-         y="580.60156"
-         id="use2670"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph1-14"
-         x="826"
-         y="580.60156"
-         id="use2672"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph1-15"
-         x="829"
-         y="580.60156"
-         id="use2674"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph1-14"
-         x="836.5"
-         y="580.60156"
-         id="use2676"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph1-15"
-         x="839.5"
-         y="580.60156"
-         id="use2678"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph1-17"
-         x="847"
-         y="580.60156"
-         id="use2680"
-         width="100%"
-         height="100%" />
-    </g>
-    <g
-       id="g4252">
-      <use
-         height="100%"
-         width="100%"
-         y="0"
-         x="0"
-         id="use3188"
-         transform="matrix(0.394531,0,0,0.394531,787,614.5)"
-         xlink:href="#image5" />
-      <g
-         id="g3216"
-         style="fill:#2b3335;fill-opacity:1">
-        <use
-           height="100%"
-           width="100%"
-           id="use3190"
-           y="729.89844"
-           x="785.5"
-           xlink:href="#glyph2-18" />
-        <use
-           height="100%"
-           width="100%"
-           id="use3192"
-           y="729.89844"
-           x="794.5"
-           xlink:href="#glyph2-19" />
-        <use
-           height="100%"
-           width="100%"
-           id="use3194"
-           y="729.89844"
-           x="805.75"
-           xlink:href="#glyph2-20" />
-        <use
-           height="100%"
-           width="100%"
-           id="use3196"
-           y="729.89844"
-           x="813.25"
-           xlink:href="#glyph2-21" />
-        <use
-           height="100%"
-           width="100%"
-           id="use3198"
-           y="729.89844"
-           x="821.5"
-           xlink:href="#glyph2-26" />
-        <use
-           height="100%"
-           width="100%"
-           id="use3200"
-           y="729.89844"
-           x="829"
-           xlink:href="#glyph2-27" />
-        <use
-           height="100%"
-           width="100%"
-           id="use3202"
-           y="729.89844"
-           x="837.25"
-           xlink:href="#glyph2-10" />
-        <use
-           height="100%"
-           width="100%"
-           id="use3204"
-           y="729.89844"
-           x="845.5"
-           xlink:href="#glyph2-7" />
-        <use
-           height="100%"
-           width="100%"
-           id="use3206"
-           y="729.89844"
-           x="850.75"
-           xlink:href="#glyph2-23" />
-        <use
-           height="100%"
-           width="100%"
-           id="use3208"
-           y="729.89844"
-           x="854.5"
-           xlink:href="#glyph2-24" />
-        <use
-           height="100%"
-           width="100%"
-           id="use3210"
-           y="729.89844"
-           x="867.25"
-           xlink:href="#glyph2-10" />
-        <use
-           height="100%"
-           width="100%"
-           id="use3212"
-           y="729.89844"
-           x="875.5"
-           xlink:href="#glyph2-12" />
-        <use
-           height="100%"
-           width="100%"
-           id="use3214"
-           y="729.89844"
-           x="883.75"
-           xlink:href="#glyph2-6" />
-      </g>
-    </g>
-  </g>
-  <g
-     id="g3252"
-     style="fill:#2b3335;fill-opacity:1"
-     transform="translate(97.618858,-155.43203)">
-    <use
-       height="100%"
-       width="100%"
-       id="use3222"
-       y="750.39844"
-       x="915"
-       xlink:href="#glyph2-13" />
-    <use
-       height="100%"
-       width="100%"
-       id="use3224"
-       y="750.39844"
-       x="919.5"
-       xlink:href="#glyph2-10" />
-    <use
-       height="100%"
-       width="100%"
-       id="use3226"
-       y="750.39844"
-       x="927.75"
-       xlink:href="#glyph2-6" />
-    <use
-       height="100%"
-       width="100%"
-       id="use3228"
-       y="750.39844"
-       x="933"
-       xlink:href="#glyph2-14" />
-    <use
-       height="100%"
-       width="100%"
-       id="use3230"
-       y="750.39844"
-       x="940.5"
-       xlink:href="#glyph2-28" />
-    <use
-       height="100%"
-       width="100%"
-       id="use3232"
-       y="750.39844"
-       x="948.75"
-       xlink:href="#glyph2-16" />
-    <use
-       height="100%"
-       width="100%"
-       id="use3234"
-       y="750.39844"
-       x="953.25"
-       xlink:href="#glyph2-29" />
-    <use
-       height="100%"
-       width="100%"
-       id="use3236"
-       y="750.39844"
-       x="963.75"
-       xlink:href="#glyph2-3" />
-    <use
-       height="100%"
-       width="100%"
-       id="use3238"
-       y="750.39844"
-       x="972"
-       xlink:href="#glyph2-7" />
-    <use
-       height="100%"
-       width="100%"
-       id="use3240"
-       y="750.39844"
-       x="977.25"
-       xlink:href="#glyph2-30" />
-    <use
-       height="100%"
-       width="100%"
-       id="use3242"
-       y="750.39844"
-       x="984.75"
-       xlink:href="#glyph2-17" />
-    <use
-       height="100%"
-       width="100%"
-       id="use3244"
-       y="750.39844"
-       x="991.5"
-       xlink:href="#glyph2-27" />
-    <use
-       height="100%"
-       width="100%"
-       id="use3246"
-       y="750.39844"
-       x="999.75"
-       xlink:href="#glyph2-8" />
-    <use
-       height="100%"
-       width="100%"
-       id="use3248"
-       y="750.39844"
-       x="1008"
-       xlink:href="#glyph2-14" />
-    <use
-       height="100%"
-       width="100%"
-       id="use3250"
-       y="750.39844"
-       x="1015.5"
-       xlink:href="#glyph2-10" />
-  </g>
-  <g
-     id="g64799"
-     transform="translate(154.09229,-120.48909)">
-    <g
-       transform="translate(185.42969,-10.5)"
-       style="fill:#2b3335;fill-opacity:1"
-       id="g3276">
-      <use
-         xlink:href="#glyph2-13"
-         x="1070"
-         y="663.39844"
-         id="use3258"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph2-10"
-         x="1074.5"
-         y="663.39844"
-         id="use3260"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph2-6"
-         x="1082.75"
-         y="663.39844"
-         id="use3262"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph2-14"
-         x="1088"
-         y="663.39844"
-         id="use3264"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph2-28"
-         x="1095.5"
-         y="663.39844"
-         id="use3266"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph2-16"
-         x="1103.75"
-         y="663.39844"
-         id="use3268"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph2-10"
-         x="1108.25"
-         y="663.39844"
-         id="use3270"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph2-12"
-         x="1116.5"
-         y="663.39844"
-         id="use3272"
-         width="100%"
-         height="100%" />
-      <use
-         xlink:href="#glyph2-22"
-         x="1124.75"
-         y="663.39844"
-         id="use3274"
-         width="100%"
-         height="100%" />
-    </g>
-  </g>
-  <g
-     id="g66202"
-     transform="translate(182.15479,-114.48909)">
-    <use
-       transform="translate(157.5,-19.5)"
-       height="100%"
-       width="100%"
-       id="use3308"
-       y="523.39844"
-       x="1064.5"
-       xlink:href="#glyph2-17"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(157.5,-19.5)"
-       height="100%"
-       width="100%"
-       id="use3310"
-       y="523.39844"
-       x="1071.25"
-       xlink:href="#glyph2-31"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(157.5,-19.5)"
-       height="100%"
-       width="100%"
-       id="use3312"
-       y="523.39844"
-       x="1079.5"
-       xlink:href="#glyph2-4"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(157.5,-19.5)"
-       height="100%"
-       width="100%"
-       id="use3314"
-       y="523.39844"
-       x="1087.75"
-       xlink:href="#glyph2-24"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(157.5,-19.5)"
-       height="100%"
-       width="100%"
-       id="use3316"
-       y="523.39844"
-       x="1100.5"
-       xlink:href="#glyph2-23"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(157.5,-19.5)"
-       height="100%"
-       width="100%"
-       id="use3318"
-       y="523.39844"
-       x="1104.25"
-       xlink:href="#glyph2-6"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(157.5,-19.5)"
-       height="100%"
-       width="100%"
-       id="use3322"
-       y="523.39844"
-       x="1116.25"
-       xlink:href="#glyph2-7"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(157.5,-19.5)"
-       height="100%"
-       width="100%"
-       id="use3324"
-       y="523.39844"
-       x="1121.5"
-       xlink:href="#glyph2-31"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(157.5,-19.5)"
-       height="100%"
-       width="100%"
-       id="use3326"
-       y="523.39844"
-       x="1129.75"
-       xlink:href="#glyph2-12"
-       style="fill:#2b3335;fill-opacity:1" />
-  </g>
-  <g
-     id="g66217"
-     transform="translate(154.09229,-120.48909)">
-    <use
-       transform="translate(185.69531,-67.5)"
-       height="100%"
-       width="100%"
-       id="use3350"
-       y="363.39844"
-       x="1051.5"
-       xlink:href="#glyph2-7"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(185.69531,-67.5)"
-       height="100%"
-       width="100%"
-       id="use3352"
-       y="363.39844"
-       x="1056.75"
-       xlink:href="#glyph2-10"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(185.69531,-67.5)"
-       height="100%"
-       width="100%"
-       id="use3354"
-       y="363.39844"
-       x="1065"
-       xlink:href="#glyph2-9"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(185.69531,-67.5)"
-       height="100%"
-       width="100%"
-       id="use3356"
-       y="363.39844"
-       x="1073.25"
-       xlink:href="#glyph2-23"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(185.69531,-67.5)"
-       height="100%"
-       width="100%"
-       id="use3358"
-       y="363.39844"
-       x="1077"
-       xlink:href="#glyph2-17"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(185.69531,-67.5)"
-       height="100%"
-       width="100%"
-       id="use3360"
-       y="363.39844"
-       x="1083.75"
-       xlink:href="#glyph2-6"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(185.69531,-67.5)"
-       height="100%"
-       width="100%"
-       id="use3362"
-       y="363.39844"
-       x="1089"
-       xlink:href="#glyph2-10"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(185.69531,-67.5)"
-       height="100%"
-       width="100%"
-       id="use3364"
-       y="363.39844"
-       x="1097.25"
-       xlink:href="#glyph2-7"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(185.69531,-67.5)"
-       height="100%"
-       width="100%"
-       id="use3368"
-       y="363.39844"
-       x="1109.25"
-       xlink:href="#glyph2-24"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(185.69531,-67.5)"
-       height="100%"
-       width="100%"
-       id="use3370"
-       y="363.39844"
-       x="1122"
-       xlink:href="#glyph2-3"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(185.69531,-67.5)"
-       height="100%"
-       width="100%"
-       id="use3372"
-       y="363.39844"
-       x="1130.25"
-       xlink:href="#glyph2-15"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(185.69531,-67.5)"
-       height="100%"
-       width="100%"
-       id="use3374"
-       y="363.39844"
-       x="1138.5"
-       xlink:href="#glyph2-10"
-       style="fill:#2b3335;fill-opacity:1" />
-    <use
-       transform="translate(185.69531,-67.5)"
-       height="100%"
-       width="100%"
-       id="use3376"
-       y="363.39844"
-       x="1146.75"
-       xlink:href="#glyph2-2"
-       style="fill:#2b3335;fill-opacity:1" />
   </g>
   <path
      inkscape:connector-curvature="0"
@@ -5027,124 +4457,6 @@
      d="M 1257.8868,723.07027 V 585.47305 h 383.6019"
      id="path26044-9"
      inkscape:connector-curvature="0" />
-  <path
-     style="fill:none;stroke:#0000ff;stroke-width:0.75px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker35719)"
-     d="m 1161.8318,473.62692 v 62.00127 h 479.4186"
-     id="path35709"
-     inkscape:connector-curvature="0" />
-  <path
-     style="fill:none;stroke:#0000ff;stroke-width:0.73922592;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker35719-1)"
-     d="m 1122.9378,473.62692 v 289.21716 h 81.92"
-     id="path35709-7"
-     inkscape:connector-curvature="0" />
-  <path
-     style="fill:none;stroke:#0000ff;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker35719-1-0)"
-     d="m 1136.9205,473.62692 v 220.08669 h 505.0944"
-     id="path35709-7-3"
-     inkscape:connector-curvature="0" />
-  <path
-     style="fill:none;stroke:#0000ff;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker35719-1-0-6)"
-     d="M 1134.3077,294.08143 V 178.38033 H 1640.128"
-     id="path35709-7-3-6"
-     inkscape:connector-curvature="0" />
-  <g
-     id="g64825"
-     transform="translate(137.84149,-372.48909)">
-    <g
-       transform="translate(67.240853,-95.744993)"
-       id="g64805">
-      <use
-         style="fill:#2b3335;fill-opacity:1"
-         xlink:href="#glyph2-15"
-         x="1059"
-         y="1205.3984"
-         id="use2958-2"
-         width="100%"
-         height="100%"
-         transform="translate(180.67688,-46.951578)" />
-      <use
-         style="fill:#2b3335;fill-opacity:1"
-         xlink:href="#glyph2-8"
-         x="1067.25"
-         y="1205.3984"
-         id="use2960-6"
-         width="100%"
-         height="100%"
-         transform="translate(180.67688,-46.951578)" />
-      <use
-         style="fill:#2b3335;fill-opacity:1"
-         xlink:href="#glyph2-6"
-         x="1075.5"
-         y="1205.3984"
-         id="use2962-1"
-         width="100%"
-         height="100%"
-         transform="translate(180.67688,-46.951578)" />
-      <use
-         style="fill:#2b3335;fill-opacity:1"
-         xlink:href="#glyph2-8"
-         x="1080.75"
-         y="1205.3984"
-         id="use2964-8"
-         width="100%"
-         height="100%"
-         transform="translate(180.67688,-46.951578)" />
-    </g>
-    <g
-       transform="translate(0,0.559889)"
-       id="g64812">
-      <use
-         style="fill:#2b3335;fill-opacity:1"
-         xlink:href="#glyph2-13"
-         x="1070"
-         y="663.39844"
-         id="use3258-9"
-         width="100%"
-         height="100%"
-         transform="translate(199.97449,398.74354)" />
-      <use
-         style="fill:#2b3335;fill-opacity:1"
-         xlink:href="#glyph2-10"
-         x="1074.5"
-         y="663.39844"
-         id="use3260-2"
-         width="100%"
-         height="100%"
-         transform="translate(199.97449,398.74354)" />
-      <use
-         style="fill:#2b3335;fill-opacity:1"
-         xlink:href="#glyph2-6"
-         x="1082.75"
-         y="663.39844"
-         id="use3262-2"
-         width="100%"
-         height="100%"
-         transform="translate(199.97449,398.74354)" />
-      <use
-         style="fill:#2b3335;fill-opacity:1"
-         xlink:href="#glyph2-14"
-         x="1088"
-         y="663.39844"
-         id="use3264-8"
-         width="100%"
-         height="100%"
-         transform="translate(199.97449,398.74354)" />
-      <use
-         style="fill:#2b3335;fill-opacity:1"
-         xlink:href="#glyph2-28"
-         x="1095.5"
-         y="663.39844"
-         id="use3266-9"
-         width="100%"
-         height="100%"
-         transform="translate(199.97449,398.74354)" />
-    </g>
-  </g>
-  <path
-     style="fill:none;stroke:#0000ff;stroke-width:0.76488239px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker64839)"
-     d="M 1189.7761,393.8597 H 1642.997"
-     id="path64829"
-     inkscape:connector-curvature="0" />
   <g
      id="g64825-2"
      transform="translate(137.84149,349.19928)">
@@ -5315,15 +4627,11 @@
          height="100%" />
     </g>
   </g>
-  <path
-     style="fill:none;stroke:#0000ff;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker35719-1-0-6-4)"
-     d="M 565.65259,612.42056 V 392.55913 h 504.82281"
-     id="path35709-7-3-6-6"
-     inkscape:connector-curvature="0" />
   <g
-     id="g18519">
+     id="g18519"
+     transform="translate(-1.6456933e-4,3.760461e-4)">
     <path
-       style="fill:none;stroke:#000000;stroke-width:1.029;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#marker64839)"
+       style="fill:none;stroke:#000000;stroke-width:1.029;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker64839-4)"
        d="m 1301.4297,850.89637 329.7741,-0.34319"
        id="path17406" />
     <path
