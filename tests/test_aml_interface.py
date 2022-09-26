@@ -75,8 +75,6 @@ class TestAMLInterface:
             "test_compute_name",
             "STANDARD_D2_V2",
         )
-        #  {'currentNodeCount': 1, 'targetNodeCount': 1, 'nodeStateCounts': {'preparingNodeCount': 0, 'runningNodeCount': 0, 'idleNodeCount': 1, 'unusableNodeCount': 0, 'leavingNodeCount': 0, 'preemptedNodeCount': 0}, 'allocationState': 'Steady', 'allocationStateTransitionTime': '2022-08-11T13:48:24.409000+00:00', 'errors': None, 'creationTime': '2022-08-11T13:46:01.432646+00:00', 'modifiedTime': '2022-08-11T13:46:08.602275+00:00', 'provisioningState': 'Succeeded', 'provisioningStateTransitionTime': None, 'scaleSettings': {'minNodeCount': 1, 'maxNodeCount': 2, 'nodeIdleTimeBeforeScaleDown': 'PT1800S'}, 'vmPriority': 'Dedicated', 'vmSize': 'STANDARD_D2_V2'}
-        # assert mock_compute_target_obj.status.serialized().vmSize == "STANDARD_D2_V2"
 
         mock_compute_target.create.assert_not_called()
 

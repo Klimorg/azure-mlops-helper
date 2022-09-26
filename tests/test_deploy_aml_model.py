@@ -208,7 +208,6 @@ class TestDeployAMLModel:
     #     aks_cluster_name = "test_aks_cluster_name"
 
     #     mock_compute_target = mocker.patch(f"{test_module}.ComputeTarget")
-    #     mock_compute_target.side_effect = ComputeTargetException
 
     #     mock_compute = Mock()
     #     mock_compute_target.create.return_value = mock_compute
@@ -264,6 +263,8 @@ class TestDeployAMLModel:
     #         script_config_path=Path("test_data/test_score.py"),
     #         deployment_settings=settings,
     #     )
+
+    #     mock_compute_target.side_effect = ComputeTargetException
 
     #     deployment.deploy_aksservice(
     #         aks_cluster_name=aks_cluster_name,
