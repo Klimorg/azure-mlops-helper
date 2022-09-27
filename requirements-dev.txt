@@ -7,7 +7,7 @@ flit==3.7.1
 hatch==1.5.0
 isort==5.10.1
 
-mypy==0.961
+mypy==0.981
 # precommit action
 pre-commit==2.20.0
 # code quality infos
