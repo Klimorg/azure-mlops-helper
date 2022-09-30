@@ -1,9 +1,6 @@
 from pathlib import Path
 from unittest.mock import Mock
 
-import pytest
-from azureml.exceptions import ComputeTargetException
-
 from azure_helper.steps.deploy_aml_model import DeploymentSettings, DeployModel
 
 test_module = "azure_helper.steps.deploy_aml_model"

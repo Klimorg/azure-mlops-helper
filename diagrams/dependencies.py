@@ -40,6 +40,13 @@ with Diagram(
                 ws_exp = Workspace("Experiments")
                 ws_model = Workspace("Models")
 
+    with Cluster("Pipeline Store"):
+        Repos("Repo")
+        with Cluster("Pipelines Templates"):
+            Pipelines("data-creation-template")
+            Pipelines("env-creation-template")
+            Pipelines("experiment-creation-template")
+
     with Cluster("Repo"):
         Repos("Repo")
         with Cluster("Azure DevOps ML Resources"):
