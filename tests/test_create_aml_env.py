@@ -208,11 +208,6 @@ class TestRetrieveWhlFilepath:
             exist_ok=True,
         )
 
-        # pkg_list = [pkg for pkg in mock_env_obj.python.conda_dependencies.pip_packages]
-        # assert "numpy==1.18.2" in pkg_list
-
-        # assert aml_env.docker.base_image == "python:3.8.13"
-
     def test_create_aml_environment_with_error(self, mocker, tmp_path, caplog):
 
         # Initiate the class

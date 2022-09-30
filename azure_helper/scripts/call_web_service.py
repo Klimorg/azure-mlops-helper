@@ -1,59 +1,62 @@
 import json
 import os
+from abc import ABC, abstractmethod
 
 import numpy as np
+import pandas as pd
 import requests
 from azureml.core.webservice import Webservice
 from sklearn.metrics import f1_score
 
 from azure_helper.utils.aml_interface import AMLInterface
 from azure_helper.utils.blob_storage_interface import BlobStorageInterface
-from azure_helper.utils.const import DEPLOYMENT_SERVICE_NAME, SCORING_CONTAINER
-from azure_helper.utils.transform_data import remove_collinear_cols
 
 
-def get_validation_data(storage_acct_name, storage_acct_key):
-    blob_storage_interface = BlobStorageInterface(
-        storage_acct_name,
-        storage_acct_key,
-    )
-    x_valid = blob_storage_interface.download_blob_to_df(
-        container_name=SCORING_CONTAINER,
-        blob_path="X_valid.csv",
-    )
-    y_valid = blob_storage_interface.download_blob_to_df(
-        container_name=SCORING_CONTAINER,
-        blob_path="y_valid.csv",
-    )
-    return x_valid, y_valid
+class WebServiceCall:
+    def __init__(self, aml_interface: AMLInterface, deployed_service_name: str) -> None:
+        self.aml_interface = aml_interface
+        self.deployed_service_name = deployed_service_name
+        self.scoring_uri = self.get_web_service_uri()
+
+    def get_web_service_uri(self):
+        service = Webservice(
+            name=self.deployed_service_name,
+            workspace=self.aml_interface.workspace,
+        )
+        return service.scoring_uri
+
+    def predict(self, x_df: pd.DataFrame) -> np.ndarray:
+        data = json.dumps({"data": x_df.values.tolist()})
+        headers = {"Content-Type": "application/json"}
+        response = requests.post(self.scoring_uri, data=data, headers=headers)
+        return np.array(response.json())
+
+    def score_predictions(self, y_valid: pd.DataFrame, y_pred: pd.DataFrame) -> None:
+        model_validation_f1_score = round(f1_score(y_valid, y_pred), 3)
+        print(f"F1 Score on Validation Data Set: {model_validation_f1_score}")
 
 
-def get_web_service_uri(aml_interface):
-    service = Webservice(
-        name=DEPLOYMENT_SERVICE_NAME,
-        workspace=aml_interface.workspace,
-    )
-    return service.scoring_uri
-
-
-def make_predictions(x_df, scoring_uri):
-    data = json.dumps({"data": x_df.values.tolist()})
-    headers = {"Content-Type": "application/json"}
-    response = requests.post(scoring_uri, data=data, headers=headers)
-    return np.array(response.json())
-
-
-def score_predictions(y_valid, y_pred):
-    model_validation_f1_score = round(f1_score(y_valid, y_pred), 3)
-    print(f"F1 Score on Validation Data Set: {model_validation_f1_score}")
-
-
-def main():
+if __name__ == "__main__":
     storage_acct_name = os.environ["STORAGE_ACCT_NAME"]
     storage_acct_key = os.environ["STORAGE_ACCT_KEY"]
     workspace_name = os.environ["AML_WORKSPACE_NAME"]
     resource_group = os.environ["RESOURCE_GROUP"]
     subscription_id = os.environ["SUBSCRIPTION_ID"]
+
+    def get_validation_data(storage_acct_name, storage_acct_key):
+        blob_storage_interface = BlobStorageInterface(
+            storage_acct_name,
+            storage_acct_key,
+        )
+        x_valid = blob_storage_interface.download_blob_to_df(
+            container_name=SCORING_CONTAINER,
+            blob_path="X_valid.csv",
+        )
+        y_valid = blob_storage_interface.download_blob_to_df(
+            container_name=SCORING_CONTAINER,
+            blob_path="y_valid.csv",
+        )
+        return x_valid, y_valid
 
     spn_credentials = {
         "tenant_id": os.environ["TENANT_ID"],
@@ -77,9 +80,5 @@ def main():
         resource_group,
     )
     scoring_uri = get_web_service_uri(aml_interface)
-    y_pred = make_predictions(x_valid, scoring_uri)
+    y_pred = make_predictions(x_valid)
     score_predictions(y_valid, y_pred)
-
-
-if __name__ == "__main__":
-    main()
