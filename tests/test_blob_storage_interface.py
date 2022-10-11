@@ -4,9 +4,9 @@ import pandas as pd
 from azure.core.exceptions import ResourceExistsError
 from pytest import fixture
 
-from azure_helper.utils.blob_storage_interface import BlobStorageInterface
+from azure_helper.interfaces.blob_storage_interface import BlobStorageInterface
 
-test_module = "azure_helper.utils.blob_storage_interface"
+test_module = "azure_helper.interfaces.blob_storage_interface"
 
 
 @fixture
@@ -87,7 +87,7 @@ class TestBlobStorageInterface:
 
         assert (
             "Dataset uploaded at blob path : test_remote_path."
-            in caplog.records[1].message
+            in caplog.records[2].message
         )
 
         blob_service_client_obj.get_blob_client.assert_called_with(
@@ -110,10 +110,10 @@ class TestBlobStorageInterface:
             "test_container_name",
             "test_remote_path",
         )
-        assert len(caplog.records) == 5
+        assert len(caplog.records) == 7
         assert (
             "Blob path test_remote_path already contains datas. Now deleting old datas tu upload the new ones."
-            in caplog.records[3].message
+            in caplog.records[5].message
         )
         # Second time upload_df_to_blob is called, there is a
         # ResourceExistsError raised so the blob is deleted first
@@ -148,8 +148,8 @@ class TestBlobStorageInterface:
         mock_blob_client.download_blob.assert_called_once()
         mock_stream.content_as_text.assert_called_once()
 
-        assert len(caplog.records) == 1
+        assert len(caplog.records) == 2
         assert (
             "Download from test_container_name ended successfully."
-            in caplog.records[0].message
+            in caplog.records[1].message
         )

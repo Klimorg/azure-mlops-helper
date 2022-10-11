@@ -1,6 +1,6 @@
 import pandas as pd
 
-from azure_helper.utils.blob_storage_interface import BlobStorageInterface
+from azure_helper.interfaces.blob_storage_interface import BlobStorageInterface
 
 
 class CreateData:

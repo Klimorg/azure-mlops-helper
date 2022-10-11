@@ -6,8 +6,8 @@ from azureml.core.runconfig import DockerConfiguration, RunConfiguration
 from azureml.pipeline.core import Pipeline
 from azureml.pipeline.steps import PythonScriptStep
 
+from azure_helper.interfaces.aml_interface import AMLInterface
 from azure_helper.logger import get_logger
-from azure_helper.utils.aml_interface import AMLInterface
 
 log = get_logger()
 

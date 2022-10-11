@@ -3,9 +3,9 @@ from unittest.mock import Mock
 from azureml.exceptions import ComputeTargetException
 from pytest import fixture
 
-from azure_helper.utils.aml_interface import AMLInterface
+from azure_helper.interfaces.aml_interface import AMLInterface
 
-test_module = "azure_helper.utils.aml_interface"
+test_module = "azure_helper.interfaces.aml_interface"
 
 
 @fixture

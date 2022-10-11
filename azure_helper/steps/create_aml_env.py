@@ -3,8 +3,8 @@ from pathlib import Path
 from azureml.core.environment import Environment
 from pydantic import BaseModel
 
+from azure_helper.interfaces.aml_interface import AMLInterface
 from azure_helper.logger import get_logger
-from azure_helper.utils.aml_interface import AMLInterface
 
 log = get_logger()
 
