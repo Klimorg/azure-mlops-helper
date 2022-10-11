@@ -1,6 +1,6 @@
 from azure.ai.ml import MLClient
 from azure.ai.ml.entities import AmlCompute, AzureBlobDatastore, Environment
-from azure.identity import DefaultAzureCredential
+from azure.identity import DefaultAzureCredential, ManagedIdentityCredential
 
 from azure_helper.logger import get_logger
 
@@ -10,6 +10,7 @@ log = get_logger()
 class AMLInterface:
     def __init__(
         self,
+        managed_id: str,
         subscription_id: str,
         workspace_name: str,
         resource_group: str,
@@ -42,8 +43,8 @@ class AMLInterface:
                 contain alphanumerics, hyphens, and underscores. Whitespace is not allowed.
             resource_group (str): The resource group containing the workspace.
         """
-        auth = DefaultAzureCredential()
-
+        # auth = DefaultAzureCredential()
+        auth = ManagedIdentityCredential(client_id=managed_id)
         self.workspace = MLClient(
             credential=auth,
             workspace_name=workspace_name,
