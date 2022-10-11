@@ -1,13 +1,6 @@
-from pathlib import Path
-
 from azure.ai.ml.entities import BuildContext, Environment
 
-from azure_helper.interfaces.aml_interface import AMLInterface
 from azure_helper.logger import get_logger
-
-# from azureml.core.environment import Environment
-# from pydantic import BaseModel
-
 
 log = get_logger()
 

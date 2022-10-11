@@ -1,11 +1,5 @@
 from azure.ai.ml import MLClient
-from azure.ai.ml.entities import (
-    AmlCompute,
-    AzureBlobDatastore,
-    ComputeInstance,
-    Environment,
-    Workspace,
-)
+from azure.ai.ml.entities import AmlCompute, AzureBlobDatastore, Environment
 from azure.identity import DefaultAzureCredential
 
 from azure_helper.logger import get_logger
@@ -54,7 +48,7 @@ class AMLInterface:
             credential=auth,
             workspace_name=workspace_name,
             subscription_id=subscription_id,
-            resource_group=resource_group,
+            resource_group_name=resource_group,
         )
 
     def register_datastore(
