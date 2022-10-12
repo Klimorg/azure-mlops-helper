@@ -44,7 +44,7 @@ class AMLInterface:
             resource_group (str): The resource group containing the workspace.
         """
         # auth = DefaultAzureCredential()
-        auth = ManagedIdentityCredential(client_id=managed_id)
+        auth = ManagedIdentityCredential()
         self.workspace = MLClient(
             credential=auth,
             workspace_name=workspace_name,
