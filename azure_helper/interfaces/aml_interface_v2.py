@@ -43,8 +43,8 @@ class AMLInterface:
                 contain alphanumerics, hyphens, and underscores. Whitespace is not allowed.
             resource_group (str): The resource group containing the workspace.
         """
-        # auth = DefaultAzureCredential()
-        auth = ManagedIdentityCredential()
+        auth = DefaultAzureCredential()
+        # auth = ManagedIdentityCredential()
         self.workspace = MLClient(
             credential=auth,
             workspace_name=workspace_name,
