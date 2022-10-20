@@ -2,7 +2,7 @@
 black==22.8.0
 darglint==1.8.1
 flake8==5.0.4
-hatch==1.5.0
+hatch==1.6.2
 isort==5.10.1
 mypy==0.961
 # precommit action
