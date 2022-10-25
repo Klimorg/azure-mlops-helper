@@ -1,4 +1,4 @@
-FROM python:3.8-slim
+FROM python:3.11.0-slim
 
 COPY . .
 RUN pip install dist/*.whl
