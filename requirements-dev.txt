@@ -4,7 +4,7 @@ darglint==1.8.1
 flake8==5.0.4
 hatch==1.5.0
 isort==5.10.1
-mypy==0.961
+mypy==1.0.0
 # precommit action
 pre-commit==2.20.0
 # code quality infos
